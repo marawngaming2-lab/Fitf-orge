@@ -1,0 +1,1113 @@
+[
+  {
+    "id": "1a9b8115-45cc-4bfe-a74a-0bd31c9dd72f",
+    "name": "Marwan",
+    "email": "marawngaming2@gmail.com",
+    "salt": "62668e20219d64e1d27a19954260f449",
+    "hash": "ee5851e4044fa5dfa57e708d92434434fe2f66dc14b6af1f9dd054e1129416f56abdb70d2c787b79f68b5b6080a8663f98a2fba411cd513a3e1df0b77875539a",
+    "emailVerified": true,
+    "createdAt": "2026-10-26T20:39:18.805Z",
+    "data": {
+      "fitforge-v1": {
+        "lang": "ar",
+        "profile": {
+          "age": 16,
+          "sex": "male",
+          "height": 152,
+          "weight": 53,
+          "activity": 1.375,
+          "goal": "bulk",
+          "target": 72,
+          "calories": 2132,
+          "protein": 95,
+          "carbs": 330,
+          "fats": 48
+        },
+        "foods": [],
+        "weights": [],
+        "workouts": []
+      },
+      "fitforge-custom-week": [
+        {
+          "day": "Sunday",
+          "group": "Chest + Shoulders"
+        },
+        {
+          "day": "Monday",
+          "group": "Rest"
+        },
+        {
+          "day": "Tuesday",
+          "group": "Back + Biceps"
+        },
+        {
+          "day": "Wednesday",
+          "group": "Rest"
+        },
+        {
+          "day": "Thursday",
+          "group": "Legs"
+        },
+        {
+          "day": "Friday",
+          "group": "Shoulders + Arms"
+        },
+        {
+          "day": "Saturday",
+          "group": "Rest"
+        }
+      ],
+      "fitforge-body-entries": [],
+      "fitforge-week-plan:marawngaming2@gmail.com": {
+        "budget": 9000,
+        "goal": "loss",
+        "avoid": "سمك",
+        "createdAt": "2026-10-26T20:28:32.891Z",
+        "days": [
+          {
+            "day": "Sunday",
+            "meals": [
+              {
+                "name": "Breakfast",
+                "foods": "2 baladi eggs; 1 baladi bread; 100g tomatoes and cucumbers",
+                "grams": "250g",
+                "calories": 420,
+                "protein": 18,
+                "carbs": 45,
+                "fat": 16,
+                "estimated_cost": 20.8,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "1 banana; 200ml loose milk",
+                "grams": "300g",
+                "calories": 235,
+                "protein": 8,
+                "carbs": 38,
+                "fat": 6,
+                "estimated_cost": 12,
+                "notes": ""
+              },
+              {
+                "name": "Lunch",
+                "foods": "180g fresh chicken breast; 150g cooked white rice; 100g boiled potatoes",
+                "grams": "430g",
+                "calories": 610,
+                "protein": 45,
+                "carbs": 65,
+                "fat": 14,
+                "estimated_cost": 31.5,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "1 apple; 30g raw peanuts",
+                "grams": "180g",
+                "calories": 300,
+                "protein": 8,
+                "carbs": 30,
+                "fat": 16,
+                "estimated_cost": 15,
+                "notes": ""
+              },
+              {
+                "name": "Dinner",
+                "foods": "150g packaged fava beans with oil and cumin; 1 baladi bread; 50g rocket leaves",
+                "grams": "300g",
+                "calories": 520,
+                "protein": 18,
+                "carbs": 70,
+                "fat": 15,
+                "estimated_cost": 14.5,
+                "notes": ""
+              }
+            ],
+            "calories": 2085,
+            "protein": 97,
+            "carbs": 248,
+            "fat": 67,
+            "estimated_cost": 93.8
+          },
+          {
+            "day": "Monday",
+            "meals": [
+              {
+                "name": "Breakfast",
+                "foods": "150g cooked lentils; 1 baladi bread; 50g sliced cucumber",
+                "grams": "300g",
+                "calories": 430,
+                "protein": 20,
+                "carbs": 72,
+                "fat": 6,
+                "estimated_cost": 15,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "200ml loose milk; 1 orange",
+                "grams": "350g",
+                "calories": 200,
+                "protein": 7,
+                "carbs": 32,
+                "fat": 5,
+                "estimated_cost": 11.5,
+                "notes": ""
+              },
+              {
+                "name": "Lunch",
+                "foods": "180g chicken breast; 150g pasta with tomato sauce; 100g green salad",
+                "grams": "430g",
+                "calories": 620,
+                "protein": 46,
+                "carbs": 68,
+                "fat": 15,
+                "estimated_cost": 32,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "2 baladi eggs hard-boiled; 50g cucumber",
+                "grams": "150g",
+                "calories": 160,
+                "protein": 13,
+                "carbs": 2,
+                "fat": 11,
+                "estimated_cost": 10.8,
+                "notes": ""
+              },
+              {
+                "name": "Dinner",
+                "foods": "200g baked potatoes; 100g white cheese; 1 baladi bread",
+                "grams": "400g",
+                "calories": 650,
+                "protein": 22,
+                "carbs": 80,
+                "fat": 24,
+                "estimated_cost": 25,
+                "notes": ""
+              }
+            ],
+            "calories": 2060,
+            "protein": 108,
+            "carbs": 254,
+            "fat": 61,
+            "estimated_cost": 94.3
+          },
+          {
+            "day": "Tuesday",
+            "meals": [
+              {
+                "name": "Breakfast",
+                "foods": "2 baladi eggs; 1 baladi bread; 100g tomatoes",
+                "grams": "250g",
+                "calories": 410,
+                "protein": 18,
+                "carbs": 44,
+                "fat": 16,
+                "estimated_cost": 20.8,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "1 banana; 30g raw peanuts",
+                "grams": "130g",
+                "calories": 280,
+                "protein": 8,
+                "carbs": 30,
+                "fat": 15,
+                "estimated_cost": 13,
+                "notes": ""
+              },
+              {
+                "name": "Lunch",
+                "foods": "180g fresh chicken breast; 150g cooked white rice; 150g roasted potatoes",
+                "grams": "480g",
+                "calories": 640,
+                "protein": 46,
+                "carbs": 75,
+                "fat": 14,
+                "estimated_cost": 32.5,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "200ml loose milk; 1 apple",
+                "grams": "350g",
+                "calories": 195,
+                "protein": 7,
+                "carbs": 35,
+                "fat": 5,
+                "estimated_cost": 11.5,
+                "notes": ""
+              },
+              {
+                "name": "Dinner",
+                "foods": "150g packaged fava beans; 1 baladi bread; 50g rocket leaves",
+                "grams": "300g",
+                "calories": 520,
+                "protein": 18,
+                "carbs": 70,
+                "fat": 15,
+                "estimated_cost": 14.5,
+                "notes": ""
+              }
+            ],
+            "calories": 2045,
+            "protein": 97,
+            "carbs": 254,
+            "fat": 65,
+            "estimated_cost": 92.3
+          },
+          {
+            "day": "Wednesday",
+            "meals": [
+              {
+                "name": "Breakfast",
+                "foods": "150g cooked lentils; 1 baladi bread; 50g tomatoes",
+                "grams": "300g",
+                "calories": 435,
+                "protein": 20,
+                "carbs": 73,
+                "fat": 6,
+                "estimated_cost": 15,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "200ml loose milk; 1 orange",
+                "grams": "350g",
+                "calories": 200,
+                "protein": 7,
+                "carbs": 32,
+                "fat": 5,
+                "estimated_cost": 11.5,
+                "notes": ""
+              },
+              {
+                "name": "Lunch",
+                "foods": "180g chicken breast; 150g pasta with tomato sauce; 100g side salad",
+                "grams": "430g",
+                "calories": 620,
+                "protein": 46,
+                "carbs": 68,
+                "fat": 15,
+                "estimated_cost": 32,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "2 baladi eggs hard-boiled; 50g cucumber",
+                "grams": "150g",
+                "calories": 160,
+                "protein": 13,
+                "carbs": 2,
+                "fat": 11,
+                "estimated_cost": 10.8,
+                "notes": ""
+              },
+              {
+                "name": "Dinner",
+                "foods": "200g boiled potatoes mashed with milk; 1 baladi bread; 50g white cheese",
+                "grams": "350g",
+                "calories": 550,
+                "protein": 19,
+                "carbs": 75,
+                "fat": 18,
+                "estimated_cost": 21,
+                "notes": ""
+              }
+            ],
+            "calories": 1965,
+            "protein": 105,
+            "carbs": 250,
+            "fat": 55,
+            "estimated_cost": 90.3
+          },
+          {
+            "day": "Thursday",
+            "meals": [
+              {
+                "name": "Breakfast",
+                "foods": "2 baladi eggs; 1 baladi bread; 100g cucumbers",
+                "grams": "250g",
+                "calories": 410,
+                "protein": 18,
+                "carbs": 44,
+                "fat": 16,
+                "estimated_cost": 20.8,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "1 banana; 200ml loose milk",
+                "grams": "300g",
+                "calories": 235,
+                "protein": 8,
+                "carbs": 38,
+                "fat": 6,
+                "estimated_cost": 12,
+                "notes": ""
+              },
+              {
+                "name": "Lunch",
+                "foods": "180g chicken breast; 150g cooked white rice; 100g steamed vegetables",
+                "grams": "430g",
+                "calories": 590,
+                "protein": 45,
+                "carbs": 62,
+                "fat": 13,
+                "estimated_cost": 31,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "1 apple; 30g raw peanuts",
+                "grams": "180g",
+                "calories": 300,
+                "protein": 8,
+                "carbs": 30,
+                "fat": 16,
+                "estimated_cost": 15,
+                "notes": ""
+              },
+              {
+                "name": "Dinner",
+                "foods": "150g packaged fava beans; 1 baladi bread; 50g tomatoes",
+                "grams": "300g",
+                "calories": 510,
+                "protein": 18,
+                "carbs": 68,
+                "fat": 15,
+                "estimated_cost": 14.5,
+                "notes": ""
+              }
+            ],
+            "calories": 2045,
+            "protein": 97,
+            "carbs": 242,
+            "fat": 66,
+            "estimated_cost": 93.3
+          },
+          {
+            "day": "Friday",
+            "meals": [
+              {
+                "name": "Breakfast",
+                "foods": "150g cooked lentils; 1 baladi bread; 50g cucumber",
+                "grams": "300g",
+                "calories": 430,
+                "protein": 20,
+                "carbs": 72,
+                "fat": 6,
+                "estimated_cost": 15,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "200ml loose milk; 1 orange",
+                "grams": "350g",
+                "calories": 200,
+                "protein": 7,
+                "carbs": 32,
+                "fat": 5,
+                "estimated_cost": 11.5,
+                "notes": ""
+              },
+              {
+                "name": "Lunch",
+                "foods": "180g chicken breast; 150g pasta with tomato sauce; 100g green salad",
+                "grams": "430g",
+                "calories": 620,
+                "protein": 46,
+                "carbs": 68,
+                "fat": 15,
+                "estimated_cost": 32,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "2 baladi eggs hard-boiled; 50g tomatoes",
+                "grams": "150g",
+                "calories": 160,
+                "protein": 13,
+                "carbs": 2,
+                "fat": 11,
+                "estimated_cost": 10.8,
+                "notes": ""
+              },
+              {
+                "name": "Dinner",
+                "foods": "200g baked potatoes; 1 baladi bread; 50g white cheese",
+                "grams": "350g",
+                "calories": 540,
+                "protein": 18,
+                "carbs": 75,
+                "fat": 17,
+                "estimated_cost": 20,
+                "notes": ""
+              }
+            ],
+            "calories": 1950,
+            "protein": 104,
+            "carbs": 249,
+            "fat": 54,
+            "estimated_cost": 89.3
+          },
+          {
+            "day": "Saturday",
+            "meals": [
+              {
+                "name": "Breakfast",
+                "foods": "2 baladi eggs; 1 baladi bread; 100g tomatoes and cucumbers",
+                "grams": "250g",
+                "calories": 420,
+                "protein": 18,
+                "carbs": 45,
+                "fat": 16,
+                "estimated_cost": 20.8,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "1 banana; 30g raw peanuts",
+                "grams": "130g",
+                "calories": 280,
+                "protein": 8,
+                "carbs": 30,
+                "fat": 15,
+                "estimated_cost": 13,
+                "notes": ""
+              },
+              {
+                "name": "Lunch",
+                "foods": "180g chicken breast; 150g cooked white rice; 100g roasted potatoes",
+                "grams": "430g",
+                "calories": 610,
+                "protein": 45,
+                "carbs": 65,
+                "fat": 14,
+                "estimated_cost": 31.5,
+                "notes": ""
+              },
+              {
+                "name": "Snack",
+                "foods": "200ml loose milk; 1 apple",
+                "grams": "350g",
+                "calories": 195,
+                "protein": 7,
+                "carbs": 35,
+                "fat": 5,
+                "estimated_cost": 11.5,
+                "notes": ""
+              },
+              {
+                "name": "Dinner",
+                "foods": "150g packaged fava beans; 1 baladi bread; 50g rocket leaves",
+                "grams": "300g",
+                "calories": 520,
+                "protein": 18,
+                "carbs": 70,
+                "fat": 15,
+                "estimated_cost": 14.5,
+                "notes": ""
+              }
+            ],
+            "calories": 2025,
+            "protein": 96,
+            "carbs": 245,
+            "fat": 65,
+            "estimated_cost": 91.3
+          }
+        ],
+        "shopping_list": [
+          {
+            "item": "fresh poultry (chicken breast)",
+            "quantity": "1.3 kg",
+            "estimated_cost": 137.8
+          },
+          {
+            "item": "baladi eggs",
+            "quantity": "20 eggs",
+            "estimated_cost": 108
+          },
+          {
+            "item": "packaged white rice",
+            "quantity": "1 kg",
+            "estimated_cost": 35
+          },
+          {
+            "item": "pasta",
+            "quantity": "1 kg",
+            "estimated_cost": 27
+          },
+          {
+            "item": "packaged fava beans",
+            "quantity": "1 kg",
+            "estimated_cost": 62
+          },
+          {
+            "item": "packaged lentils",
+            "quantity": "0.5 kg",
+            "estimated_cost": 34.5
+          },
+          {
+            "item": "potatoes",
+            "quantity": "2 kg",
+            "estimated_cost": 48
+          },
+          {
+            "item": "loose milk",
+            "quantity": "3 litres",
+            "estimated_cost": 102
+          },
+          {
+            "item": "baladi bread",
+            "quantity": "21 loaves",
+            "estimated_cost": 30
+          },
+          {
+            "item": "tomatoes and cucumbers",
+            "quantity": "2 kg mixed",
+            "estimated_cost": 30
+          },
+          {
+            "item": "fresh fruits (bananas, apples, oranges)",
+            "quantity": "3.5 kg mixed",
+            "estimated_cost": 75
+          },
+          {
+            "item": "raw peanuts",
+            "quantity": "0.2 kg",
+            "estimated_cost": 30
+          },
+          {
+            "item": "white cheese",
+            "quantity": "0.3 kg",
+            "estimated_cost": 36
+          }
+        ],
+        "estimated_week_cost": 644.5999999999999,
+        "summary": "Weekly budget: 9000 EGP. Prices are estimates based on Egypt market benchmarks: rice 35 EGP/kg, fava beans 62 EGP/kg, lentils 69 EGP/kg, poultry 106 EGP/kg, eggs 5.4 EGP each, potatoes 24 EGP/kg, pasta 27 EGP/kg, milk 34 EGP/l. Pantry staples like oil, salt, and spices assumed available. Note: As the user is 16, weight-loss restriction is avoided in favor of a balanced diet around 2100 kcal."
+      },
+      "fitforge-week-plan:guest": {
+        "budget": 500,
+        "goal": "bulk",
+        "avoid": "",
+        "createdAt": "2026-10-26T19:16:08.487Z",
+        "days": [
+          {
+            "day": "السبت",
+            "meals": [
+              {
+                "name": "الإفطار",
+                "foods": "2 بيض بلدي مقلي; رغيف عيش بلدي; طماطم وخيار 100 جم",
+                "grams": "250 جم",
+                "calories": 380,
+                "protein": 18,
+                "carbs": 45,
+                "fat": 14,
+                "estimated_cost": 16,
+                "notes": ""
+              },
+              {
+                "name": "السناك الأول",
+                "foods": "موزة متوسطة الحجم; كوب لبن سائل",
+                "grams": "300 جم",
+                "calories": 270,
+                "protein": 10,
+                "carbs": 42,
+                "fat": 8,
+                "estimated_cost": 15,
+                "notes": ""
+              },
+              {
+                "name": "الغداء",
+                "foods": "صدور دجاج مسلوقة ومتحمرة; أرز مصري مطبوخ; سلطة خضراء",
+                "grams": "500 جم",
+                "calories": 650,
+                "protein": 45,
+                "carbs": 70,
+                "fat": 12,
+                "estimated_cost": 45,
+                "notes": ""
+              },
+              {
+                "name": "السناك الثاني",
+                "foods": "فول مدمس مطبوخ بقليل من الزيت; رغيف عيش بلدي صغير",
+                "grams": "200 جم",
+                "calories": 350,
+                "protein": 15,
+                "carbs": 50,
+                "fat": 10,
+                "estimated_cost": 10,
+                "notes": ""
+              },
+              {
+                "name": "العشاء",
+                "foods": "جبنة قريش; طماطم وزيت زيتون; رغيف عيش بلدي",
+                "grams": "250 جم",
+                "calories": 420,
+                "protein": 22,
+                "carbs": 45,
+                "fat": 15,
+                "estimated_cost": 18,
+                "notes": ""
+              }
+            ],
+            "calories": 2070,
+            "protein": 110,
+            "carbs": 252,
+            "fat": 59,
+            "estimated_cost": 104
+          },
+          {
+            "day": "الأحد",
+            "meals": [
+              {
+                "name": "الإفطار",
+                "foods": "فول مدمس بالزيت والليمون; 1 بيض مسلوق; رغيف عيش بلدي",
+                "grams": "300 جم",
+                "calories": 450,
+                "protein": 20,
+                "carbs": 55,
+                "fat": 16,
+                "estimated_cost": 15,
+                "notes": ""
+              },
+              {
+                "name": "السناك الأول",
+                "foods": "كوب لبن سائل; 2 تمرات",
+                "grams": "250 جم",
+                "calories": 230,
+                "protein": 9,
+                "carbs": 38,
+                "fat": 5,
+                "estimated_cost": 12,
+                "notes": ""
+              },
+              {
+                "name": "الغداء",
+                "foods": "مكرونة بالصلصة; دجاج مسلوق ومتبل; سلطة خضراء",
+                "grams": "550 جم",
+                "calories": 680,
+                "protein": 48,
+                "carbs": 75,
+                "fat": 14,
+                "estimated_cost": 42,
+                "notes": ""
+              },
+              {
+                "name": "السناك الثاني",
+                "foods": "بطاطس محشية أو مسلوقة ومهروسة; خبز بلدي",
+                "grams": "200 جم",
+                "calories": 310,
+                "protein": 6,
+                "carbs": 55,
+                "fat": 7,
+                "estimated_cost": 8,
+                "notes": ""
+              },
+              {
+                "name": "العشاء",
+                "foods": "عجة بيض بالبقدونس والطماطم; رغيف عيش بلدي",
+                "grams": "250 جم",
+                "calories": 400,
+                "protein": 18,
+                "carbs": 42,
+                "fat": 16,
+                "estimated_cost": 16,
+                "notes": ""
+              }
+            ],
+            "calories": 2070,
+            "protein": 101,
+            "carbs": 265,
+            "fat": 58,
+            "estimated_cost": 93
+          },
+          {
+            "day": "الإثنين",
+            "meals": [
+              {
+                "name": "الإفطار",
+                "foods": "جبنة قريش بالطماطم; رغيف عيش بلدي; خيار",
+                "grams": "250 جم",
+                "calories": 360,
+                "protein": 20,
+                "carbs": 42,
+                "fat": 11,
+                "estimated_cost": 15,
+                "notes": ""
+              },
+              {
+                "name": "السناك الأول",
+                "foods": "موزة متوسطة الحجم",
+                "grams": "120 جم",
+                "calories": 105,
+                "protein": 1,
+                "carbs": 27,
+                "fat": 0,
+                "estimated_cost": 5,
+                "notes": ""
+              },
+              {
+                "name": "الغداء",
+                "foods": "عدس أصفر مطبوخ بالشعرية; رغيف عيش بلدي مدمس; بصل مخلل",
+                "grams": "500 جم",
+                "calories": 620,
+                "protein": 25,
+                "carbs": 95,
+                "fat": 12,
+                "estimated_cost": 14,
+                "notes": ""
+              },
+              {
+                "name": "السناك الثاني",
+                "foods": "كوب لبن سائل; 2 بيض مسلوق",
+                "grams": "300 جم",
+                "calories": 320,
+                "protein": 22,
+                "carbs": 12,
+                "fat": 18,
+                "estimated_cost": 16,
+                "notes": ""
+              },
+              {
+                "name": "العشاء",
+                "foods": "بطاطس مسلوقة ومهروسة بالكمون; رغيف عيش بلدي",
+                "grams": "250 جم",
+                "calories": 380,
+                "protein": 8,
+                "carbs": 65,
+                "fat": 8,
+                "estimated_cost": 9,
+                "notes": ""
+              }
+            ],
+            "calories": 1785,
+            "protein": 76,
+            "carbs": 241,
+            "fat": 49,
+            "estimated_cost": 59
+          },
+          {
+            "day": "الثلاثاء",
+            "meals": [
+              {
+                "name": "الإفطار",
+                "foods": "2 بيض مسلوق; رغيف عيش بلدي; طماطم",
+                "grams": "250 جم",
+                "calories": 350,
+                "protein": 17,
+                "carbs": 42,
+                "fat": 12,
+                "estimated_cost": 14,
+                "notes": ""
+              },
+              {
+                "name": "السناك الأول",
+                "foods": "كوب لبن سائل",
+                "grams": "200 جم",
+                "calories": 120,
+                "protein": 7,
+                "carbs": 10,
+                "fat": 6,
+                "estimated_cost": 7,
+                "notes": ""
+              },
+              {
+                "name": "الغداء",
+                "foods": "أرز مصري مفلفل; صدور دجاج مشوية أو مسلوقة; طبق شوربة دجاج",
+                "grams": "500 جم",
+                "calories": 610,
+                "protein": 44,
+                "carbs": 65,
+                "fat": 10,
+                "estimated_cost": 42,
+                "notes": ""
+              },
+              {
+                "name": "السناك الثاني",
+                "foods": "فول مدمس بزيت الذرة; خبز بلدي",
+                "grams": "200 جم",
+                "calories": 320,
+                "protein": 12,
+                "carbs": 45,
+                "fat": 9,
+                "estimated_cost": 8,
+                "notes": ""
+              },
+              {
+                "name": "العشاء",
+                "foods": "سلطة جبنة قريش وخيار; رغيف عيش بلدي",
+                "grams": "250 جم",
+                "calories": 340,
+                "protein": 18,
+                "carbs": 42,
+                "fat": 10,
+                "estimated_cost": 15,
+                "notes": ""
+              }
+            ],
+            "calories": 1740,
+            "protein": 98,
+            "carbs": 204,
+            "fat": 47,
+            "estimated_cost": 86
+          },
+          {
+            "day": "الأربعاء",
+            "meals": [
+              {
+                "name": "الإفطار",
+                "foods": "فول مدمس بالزبدة أو الزيت; رغيف عيش بلدي",
+                "grams": "250 جم",
+                "calories": 400,
+                "protein": 15,
+                "carbs": 58,
+                "fat": 12,
+                "estimated_cost": 11,
+                "notes": ""
+              },
+              {
+                "name": "السناك الأول",
+                "foods": "موزة; كوب لبن سائل",
+                "grams": "320 جم",
+                "calories": 270,
+                "protein": 10,
+                "carbs": 42,
+                "fat": 8,
+                "estimated_cost": 15,
+                "notes": ""
+              },
+              {
+                "name": "الغداء",
+                "foods": "مكرونة بالصلصة; دجاج مسلوق; خضار سوتيه بطاطس وجزر",
+                "grams": "550 جم",
+                "calories": 650,
+                "protein": 46,
+                "carbs": 70,
+                "fat": 12,
+                "estimated_cost": 43,
+                "notes": ""
+              },
+              {
+                "name": "السناك الثاني",
+                "foods": "2 بيض مسلوق; رغيف عيش بلدي صغير",
+                "grams": "180 جم",
+                "calories": 280,
+                "protein": 15,
+                "carbs": 25,
+                "fat": 12,
+                "estimated_cost": 13,
+                "notes": ""
+              },
+              {
+                "name": "العشاء",
+                "foods": "بطاطس محمرة أو في الفرن بقليل من الزيت; جبنة قريش",
+                "grams": "250 جم",
+                "calories": 390,
+                "protein": 16,
+                "carbs": 50,
+                "fat": 14,
+                "estimated_cost": 16,
+                "notes": ""
+              }
+            ],
+            "calories": 1990,
+            "protein": 102,
+            "carbs": 245,
+            "fat": 58,
+            "estimated_cost": 98
+          },
+          {
+            "day": "الخميس",
+            "meals": [
+              {
+                "name": "الإفطار",
+                "foods": "عجة بيض وطماطم; رغيف عيش بلدي",
+                "grams": "250 جم",
+                "calories": 380,
+                "protein": 16,
+                "carbs": 42,
+                "fat": 15,
+                "estimated_cost": 15,
+                "notes": ""
+              },
+              {
+                "name": "السناك الأول",
+                "foods": "كوب لبن سائل",
+                "grams": "200 جم",
+                "calories": 120,
+                "protein": 7,
+                "carbs": 10,
+                "fat": 6,
+                "estimated_cost": 7,
+                "notes": ""
+              },
+              {
+                "name": "الغداء",
+                "foods": "كشري عدس أصفر وأرز; بيضة مسلوقة; صلصة طماطم",
+                "grams": "500 جم",
+                "calories": 620,
+                "protein": 22,
+                "carbs": 98,
+                "fat": 14,
+                "estimated_cost": 15,
+                "notes": ""
+              },
+              {
+                "name": "السناك الثاني",
+                "foods": "فول مدمس بالليمون والكمون; خبز بلدي",
+                "grams": "200 جم",
+                "calories": 300,
+                "protein": 12,
+                "carbs": 45,
+                "fat": 7,
+                "estimated_cost": 8,
+                "notes": ""
+              },
+              {
+                "name": "العشاء",
+                "foods": "جبنة قريش; طماطم وخيار; رغيف عيش بلدي",
+                "grams": "250 جم",
+                "calories": 350,
+                "protein": 18,
+                "carbs": 42,
+                "fat": 10,
+                "estimated_cost": 15,
+                "notes": ""
+              }
+            ],
+            "calories": 1770,
+            "protein": 75,
+            "carbs": 237,
+            "fat": 52,
+            "estimated_cost": 60
+          },
+          {
+            "day": "الجمعة",
+            "meals": [
+              {
+                "name": "الإفطار",
+                "foods": "فول مدمس بالبيض المسلوق; رغيف عيش بلدي",
+                "grams": "300 جم",
+                "calories": 440,
+                "protein": 22,
+                "carbs": 52,
+                "fat": 15,
+                "estimated_cost": 16,
+                "notes": ""
+              },
+              {
+                "name": "السناك الأول",
+                "foods": "موزة متوسطة الحجم",
+                "grams": "120 جم",
+                "calories": 105,
+                "protein": 1,
+                "carbs": 27,
+                "fat": 0,
+                "estimated_cost": 5,
+                "notes": ""
+              },
+              {
+                "name": "الغداء",
+                "foods": "أرز مصري; صدور دجاج مسلوقة ومتحمرة; سلطة خضراء",
+                "grams": "500 جم",
+                "calories": 640,
+                "protein": 45,
+                "carbs": 68,
+                "fat": 12,
+                "estimated_cost": 45,
+                "notes": ""
+              },
+              {
+                "name": "السناك الثاني",
+                "foods": "كوب لبن سائل; 2 بيض مسلوق",
+                "grams": "300 جم",
+                "calories": 320,
+                "protein": 22,
+                "carbs": 12,
+                "fat": 18,
+                "estimated_cost": 16,
+                "notes": ""
+              },
+              {
+                "name": "العشاء",
+                "foods": "بطاطس مهروسة بالكمون; رغيف عيش بلدي; طماطم",
+                "grams": "250 جم",
+                "calories": 360,
+                "protein": 8,
+                "carbs": 60,
+                "fat": 8,
+                "estimated_cost": 9,
+                "notes": ""
+              }
+            ],
+            "calories": 1865,
+            "protein": 98,
+            "carbs": 219,
+            "fat": 53,
+            "estimated_cost": 91
+          }
+        ],
+        "shopping_list": [
+          {
+            "item": "بيض بلدي",
+            "quantity": "30 بيضة",
+            "estimated_cost": 162
+          },
+          {
+            "item": "صدور دجاج",
+            "quantity": "1.5 كجم",
+            "estimated_cost": 159
+          },
+          {
+            "item": "أرز مصري معبأ",
+            "quantity": "1 كجم",
+            "estimated_cost": 35
+          },
+          {
+            "item": "مكرونة معبأة",
+            "quantity": "1 كجم",
+            "estimated_cost": 27
+          },
+          {
+            "item": "فول مدمس معبأ",
+            "quantity": "0.5 كجم",
+            "estimated_cost": 31
+          },
+          {
+            "item": "عدس أصفر معبأ",
+            "quantity": "0.5 كجم",
+            "estimated_cost": 35
+          },
+          {
+            "item": "لبن سائل (loose)",
+            "quantity": "2 لتر",
+            "estimated_cost": 68
+          },
+          {
+            "item": "بطاطس",
+            "quantity": "2 كجم",
+            "estimated_cost": 48
+          },
+          {
+            "item": "جبنة قريش",
+            "quantity": "1 كجم",
+            "estimated_cost": 60
+          },
+          {
+            "item": "خضار (طماطم وخيار وموز)",
+            "quantity": "تشكيلة 3 كجم",
+            "estimated_cost": 65
+          }
+        ],
+        "estimated_week_cost": 591,
+        "summary": "أسعار الوحدات الاسترشادية: أرز 35 جنيه/كجم، فول 62 جنيه/كجم، عدس 69 جنيه/كجم، دجاج 106 جنيه/كجم، بيض بلدي 5.4 جنيه للبيضة، بطاطس 24 جنيه/كجم، مكرونة 27 جنيه/كجم، لبن سائل 34 جنيه/لتر. تم افتراض توفر البهارات والملح والزيت الأساسي في المطبخ. سلة الشراء تتجاوز ميزانية 500 جنيه قليلاً نظراً لشراء عبوات كاملة بالأسعار الحالية بالسوق المصري."
+      }
+    },
+    "dataUpdatedAt": "2026-10-27T14:48:44.533Z"
+  }
+]

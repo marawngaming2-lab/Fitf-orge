@@ -1,0 +1,4228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#070908" />
+<title>FitForge — Elite Fitness & Nutrition Platform</title>
+
+<!-- Modern Athletic Typography -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   FITFORGE DESIGN SYSTEM & TOKENS
+   ========================================================================== */
+:root {
+  --bg-deep: #070908;
+  --bg-body: #0b0f0c;
+  --bg-sidebar: #0f1511;
+  --bg-card: #131b15;
+  --bg-card-elevated: #18231c;
+  --bg-card-hover: #1e2c22;
+  --bg-input: #0a0e0b;
+  --bg-glass: rgba(19, 27, 21, 0.75);
+  
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-medium: rgba(255, 255, 255, 0.12);
+  --border-card: #1e2a21;
+  --border-focus: #a8f05a;
+  --border-accent: rgba(168, 240, 90, 0.28);
+  
+  --accent-lime: #a8f05a;
+  --accent-lime-bright: #bbf246;
+  --accent-lime-dim: #70b936;
+  --accent-lime-soft: rgba(168, 240, 90, 0.12);
+  --accent-lime-glow: rgba(168, 240, 90, 0.22);
+  
+  --accent-cyan: #38bdf8;
+  --accent-cyan-soft: rgba(56, 189, 248, 0.12);
+  --accent-amber: #fb923c;
+  --accent-amber-soft: rgba(251, 146, 60, 0.12);
+  --accent-rose: #f43f5e;
+  --accent-rose-soft: rgba(244, 63, 94, 0.12);
+  --accent-emerald: #10b981;
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a397;
+  --text-dim: #647466;
+  --text-dark: #0d140a;
+  
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 48px -8px rgba(0, 0, 0, 0.7);
+  --shadow-lime: 0 8px 28px -6px rgba(168, 240, 90, 0.25);
+  --shadow-glow: 0 0 35px -5px rgba(168, 240, 90, 0.18);
+  
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 15px;
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-deep);
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(168, 240, 90, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 100% 20%, rgba(56, 189, 248, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 0% 80%, rgba(168, 240, 90, 0.03) 0%, transparent 40%);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: #1c271f;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2b3d2f;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+[dir="rtl"] .sidebar {
+  border-right: 0;
+  border-left: 1px solid var(--border-subtle);
+}
+[dir="rtl"] .top-actions {
+  flex-direction: row-reverse;
+}
+[dir="rtl"] .hero-stat {
+  text-align: left;
+}
+
+/* ==========================================================================
+   LAYOUT STRUCTURE
+   ========================================================================== */
+.app {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-subtle);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 40;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 8px 12px;
+  font-weight: 800;
+  font-size: 21px;
+  letter-spacing: -0.5px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.logo {
+  background: linear-gradient(135deg, var(--accent-lime) 0%, var(--accent-lime-dim) 100%);
+  color: var(--text-dark);
+  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  box-shadow: 0 4px 16px var(--accent-lime-glow);
+  flex-shrink: 0;
+}
+
+.logo svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--text-dark);
+  stroke-width: 2.2;
+}
+
+.brandname {
+  color: var(--text-main);
+  line-height: 1;
+}
+
+.brandname span {
+  color: var(--accent-lime);
+}
+
+.brand-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--accent-lime-soft);
+  color: var(--accent-lime);
+  border: 1px solid rgba(168, 240, 90, 0.25);
+  margin-inline-start: 4px;
+  vertical-align: middle;
+}
+
+.navlabel {
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  color: var(--text-dim);
+  padding: 0 12px;
+  margin-bottom: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  background: transparent;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+[dir="rtl"] .nav button {
+  text-align: right;
+}
+
+.nav button:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+  border-color: var(--border-subtle);
+}
+
+.nav button.active {
+  background: var(--accent-lime-soft);
+  color: var(--accent-lime);
+  border-color: var(--border-accent);
+}
+
+.nav button.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--accent-lime);
+  box-shadow: 0 0 10px var(--accent-lime);
+}
+
+[dir="rtl"] .nav button.active::before {
+  left: auto;
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.nav .ico {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+.nav button:hover .ico {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav button.active .ico {
+  background: var(--accent-lime);
+  color: var(--text-dark);
+}
+
+.nav .ico svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nav button .navtext {
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+/* Sidebar Bottom Card */
+.sidebottom {
+  margin-top: auto;
+  background: linear-gradient(145deg, #162417, #0e1610);
+  border: 1px solid rgba(168, 240, 90, 0.18);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebottom::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, var(--accent-lime-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.sidebottom-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-lime);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.sidebottom strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.sidebottom p {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.sidebottom button {
+  width: 100%;
+  background: var(--accent-lime);
+  color: var(--text-dark);
+  border: 0;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: -0.1px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sidebottom button:hover {
+  background: var(--accent-lime-bright);
+  box-shadow: 0 4px 16px var(--accent-lime-glow);
+  transform: translateY(-1px);
+}
+
+/* Main Content Area */
+main {
+  padding: 28px clamp(18px, 3.5vw, 44px);
+  max-width: 1540px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   TOPBAR
+   ========================================================================== */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.eyebrow {
+  font-size: 11px;
+  color: var(--accent-lime);
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-lime);
+  box-shadow: 0 0 8px var(--accent-lime);
+}
+
+.topbar h1 {
+  font-size: clamp(26px, 3.2vw, 36px);
+  letter-spacing: -1.2px;
+  line-height: 1.15;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0 0 4px;
+}
+
+.muted {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lang {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lang:hover {
+  border-color: var(--border-medium);
+  background: var(--bg-card-elevated);
+}
+
+.profile {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.profile:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-elevated);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #273822 0%, #152213 100%);
+  color: var(--accent-lime);
+  font-weight: 800;
+  font-size: 13px;
+  border: 1px solid rgba(168, 240, 90, 0.3);
+}
+
+.pname {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* ==========================================================================
+   BUTTONS & CONTROLS
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 10px 18px;
+  background: var(--accent-lime);
+  color: var(--text-dark);
+  font-family: var(--font-sans);
+  font-weight: 750;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--accent-lime-bright);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lime);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn.secondary {
+  background: var(--bg-card-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+}
+
+.btn.secondary:hover:not(:disabled) {
+  background: var(--bg-card-hover);
+  border-color: var(--border-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn.sm {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+/* ==========================================================================
+   CARDS & GRIDS
+   ========================================================================== */
+.grid {
+  display: grid;
+  gap: 18px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  position: relative;
+  transition: all var(--transition-smooth);
+  box-shadow: var(--shadow-sm);
+}
+
+.card:hover {
+  border-color: var(--border-medium);
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32px 0 16px;
+  gap: 12px;
+}
+
+.section-head h2 {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.section-head button {
+  border: 0;
+  background: transparent;
+  color: var(--accent-lime);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-xs);
+  transition: background var(--transition-fast);
+}
+
+.section-head button:hover {
+  background: var(--accent-lime-soft);
+}
+
+/* ==========================================================================
+   PAGE: DASHBOARD
+   ========================================================================== */
+.hero {
+  border: 1px solid rgba(168, 240, 90, 0.22);
+  border-radius: var(--radius-xl);
+  padding: 34px 38px;
+  background: 
+    linear-gradient(125deg, rgba(27, 43, 24, 0.85) 0%, rgba(18, 27, 19, 0.95) 50%, rgba(11, 16, 12, 0.98) 100%),
+    url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;
+  background-blend-mode: overlay, normal;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-md);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-lime-glow) 0%, transparent 70%);
+  right: 15%;
+  top: -120px;
+  pointer-events: none;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h2 {
+  font-size: clamp(24px, 3.4vw, 36px);
+  line-height: 1.16;
+  margin: 10px 0 12px;
+  letter-spacing: -0.8px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.hero p {
+  color: #c2d1bd;
+  margin: 0 0 22px;
+  max-width: 540px;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  text-align: right;
+  min-width: 170px;
+  background: rgba(11, 16, 12, 0.65);
+  border: 1px solid rgba(168, 240, 90, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-sm);
+}
+
+.hero-stat .big {
+  font-size: 46px;
+  font-weight: 850;
+  letter-spacing: -2px;
+  color: var(--accent-lime);
+  line-height: 1;
+  font-family: var(--font-mono);
+  margin: 6px 0;
+}
+
+.hero-stat small {
+  display: block;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Metric Cards Grid */
+.stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 20px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.stat-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  background: var(--accent-lime-soft);
+  color: var(--accent-lime);
+  border: 1px solid rgba(168, 240, 90, 0.2);
+}
+
+.stat-icon svg {
+  width: 19px;
+  height: 19px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.value {
+  font-size: 30px;
+  font-weight: 850;
+  letter-spacing: -1px;
+  margin: 14px 0 2px;
+  font-family: var(--font-mono);
+  color: var(--text-main);
+  line-height: 1.1;
+}
+
+.value small {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0;
+  font-family: var(--font-sans);
+}
+
+.track {
+  height: 7px;
+  background: #1c261e;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 14px 0 10px;
+  position: relative;
+}
+
+.track span {
+  height: 100%;
+  display: block;
+  background: linear-gradient(90deg, var(--accent-lime-dim) 0%, var(--accent-lime) 100%);
+  border-radius: 999px;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 12px var(--accent-lime-glow);
+}
+
+.foot {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Lower Section: Macros & Quick Actions */
+.lower {
+  grid-template-columns: 1.2fr 0.8fr;
+  margin-top: 10px;
+}
+
+.macro-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.macro-row {
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  transition: all var(--transition-fast);
+}
+
+.macro-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border-medium);
+}
+
+.macro-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--accent-lime);
+}
+
+.macro-icon.protein {
+  background: var(--accent-lime-soft);
+  color: var(--accent-lime);
+}
+
+.macro-icon.carbs {
+  background: var(--accent-cyan-soft);
+  color: var(--accent-cyan);
+}
+
+.macro-icon.fats {
+  background: var(--accent-amber-soft);
+  color: var(--accent-amber);
+}
+
+.macro-row strong {
+  font-size: 14px;
+  font-weight: 700;
+  display: block;
+}
+
+.macro-row small {
+  display: block;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.macro-row .track {
+  margin: 8px 0 0;
+}
+
+.macro-number {
+  font-size: 13px;
+  font-weight: 750;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  color: var(--text-main);
+}
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.quick {
+  border: 1px solid var(--border-card);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  text-align: left;
+  color: var(--text-main);
+  min-height: 115px;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+[dir="rtl"] .quick {
+  text-align: right;
+}
+
+.quick:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.quick .qicon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-lime-soft);
+  color: var(--accent-lime);
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+}
+
+.quick .qicon svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.quick strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 750;
+  margin-bottom: 2px;
+}
+
+.quick small {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  line-height: 1.35;
+}
+
+/* ==========================================================================
+   PAGE: NUTRITION
+   ========================================================================== */
+.daily-strip {
+  margin-bottom: 24px;
+}
+
+.daily-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.mini-stat {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+.mini-stat::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-lime);
+  opacity: 0.6;
+}
+
+.mini-stat small {
+  display: block;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mini-stat strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 850;
+  font-family: var(--font-mono);
+  color: var(--accent-lime);
+}
+
+.food-layout {
+  grid-template-columns: 1fr 1fr;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+.field label {
+  display: block;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.field input, .field select, .field textarea {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-card);
+  color: var(--text-main);
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--accent-lime);
+  box-shadow: 0 0 0 3px var(--accent-lime-soft);
+  background: #0f1511;
+}
+
+.food-controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: flex-end;
+  margin-top: 6px;
+}
+
+.quick-grams-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.gram-pill {
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.gram-pill:hover {
+  background: var(--accent-lime-soft);
+  color: var(--accent-lime);
+  border-color: var(--border-accent);
+}
+
+.food-list {
+  display: grid;
+  gap: 10px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.fooditem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  animation: rise 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.fooditem:hover {
+  border-color: var(--border-accent);
+  background: #111812;
+  transform: translateX(2px);
+}
+
+[dir="rtl"] .fooditem:hover {
+  transform: translateX(-2px);
+}
+
+.fooditem strong {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.fooditem small {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  margin-top: 2px;
+  display: block;
+}
+
+.fooditem .kcal {
+  font-weight: 850;
+  font-family: var(--font-mono);
+  color: var(--accent-lime);
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+/* AI Photo Upload Box */
+.upload {
+  display: block;
+  border: 2px dashed rgba(168, 240, 90, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 28px 20px;
+  text-align: center;
+  background: rgba(14, 20, 15, 0.6);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-top: 14px;
+}
+
+.upload:hover, .upload.dragover {
+  border-color: var(--accent-lime);
+  background: rgba(168, 240, 90, 0.05);
+}
+
+.upload input {
+  display: none;
+}
+
+.upload .camera {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: var(--accent-lime-soft);
+  color: var(--accent-lime);
+  display: grid;
+  place-items: center;
+}
+
+.upload .camera svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.upload strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.preview {
+  max-width: 100%;
+  max-height: 220px;
+  display: none;
+  border-radius: var(--radius-md);
+  margin: 14px auto 0;
+  border: 1px solid var(--border-medium);
+  object-fit: cover;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Scan / Calculation Results */
+.result {
+  border: 1px solid rgba(168, 240, 90, 0.3);
+  background: linear-gradient(145deg, #162417, #0e1610);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-top: 18px;
+  box-shadow: var(--shadow-sm);
+  animation: rise 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.result .resultnum {
+  font-size: 32px;
+  font-weight: 850;
+  font-family: var(--font-mono);
+  color: var(--accent-lime);
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin: 6px 0;
+}
+
+.listrows {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.rowitem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 16px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-input);
+  transition: all var(--transition-fast);
+}
+
+.rowitem:hover {
+  border-color: var(--border-medium);
+  background: #111712;
+}
+
+.rowitem strong {
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.rowitem small {
+  display: block;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  margin-top: 2px;
+}
+
+.rowitem button {
+  background: rgba(244, 63, 94, 0.12);
+  color: var(--accent-rose);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  border-radius: var(--radius-xs);
+  padding: 6px 11px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.rowitem button:hover {
+  background: var(--accent-rose);
+  color: #fff;
+}
+
+.empty {
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--text-muted);
+  border: 1px dashed var(--border-subtle);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+}
+
+/* ==========================================================================
+   PAGE: PROGRESS (WEIGHT TRACKER & CHART)
+   ========================================================================== */
+.chart {
+  height: 170px;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 20px 8px 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 16px;
+  overflow-x: auto;
+}
+
+.barwrap {
+  flex: 1;
+  min-width: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  gap: 8px;
+}
+
+.barwrap strong {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--accent-lime);
+}
+
+.bar {
+  width: 100%;
+  max-width: 28px;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(0deg, var(--accent-lime-dim) 0%, var(--accent-lime) 100%);
+  min-height: 6px;
+  box-shadow: 0 0 12px var(--accent-lime-glow);
+  transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.barwrap small {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   PAGE: WORKOUTS
+   ========================================================================== */
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.exercise-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  background: var(--bg-input);
+  transition: all var(--transition-fast);
+  animation: rise 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.exercise-card:hover {
+  border-color: var(--border-accent);
+  background: #111712;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.exercise-card h3 {
+  margin: 8px 0 4px;
+  font-size: 15px;
+  font-weight: 750;
+  color: var(--text-main);
+}
+
+.exercise-card p {
+  margin: 0 0 10px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.exercise-card a {
+  color: var(--accent-lime);
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.exercise-card a:hover {
+  text-decoration: underline;
+}
+
+.plan-day {
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  margin: 14px 0;
+  background: linear-gradient(135deg, #141c15, #0f1511);
+  box-shadow: var(--shadow-sm);
+}
+
+.plan-day h3 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--accent-lime);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.plan-day ul {
+  margin: 0;
+  padding-inline-start: 22px;
+  color: #d1ded0;
+  font-size: 13px;
+  line-height: 2;
+}
+
+.plan-day li strong {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.pill {
+  display: inline-block;
+  background: var(--accent-lime-soft);
+  color: var(--accent-lime);
+  border: 1px solid rgba(168, 240, 90, 0.2);
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   PAGE: SMART TOOLS (BUDGET MEAL PLANNER & BODY TRACKER)
+   ========================================================================== */
+.meal-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: start;
+  padding: 16px;
+  margin: 10px 0;
+  background: #0d130e;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.meal-card:hover {
+  border-color: var(--border-medium);
+}
+
+.meal-title {
+  font-weight: 850;
+  font-size: 14.5px;
+  color: var(--accent-lime);
+  margin-bottom: 8px;
+}
+
+.meal-foods {
+  display: grid;
+  gap: 6px;
+}
+
+.meal-food {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  line-height: 1.6;
+  color: var(--text-main);
+  font-size: 13px;
+}
+
+.meal-food::before {
+  content: "•";
+  color: var(--accent-lime);
+  font-weight: 900;
+}
+
+.meal-macros {
+  min-width: 120px;
+  text-align: right;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: #141c15;
+  border: 1px solid var(--border-subtle);
+}
+
+[dir="rtl"] .meal-macros {
+  text-align: left;
+}
+
+.meal-macros strong {
+  display: block;
+  font-size: 16px;
+  color: var(--accent-lime);
+  font-family: var(--font-mono);
+  margin-bottom: 4px;
+}
+
+.meal-macros small {
+  display: block;
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.formgrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.note {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   AUTH MODAL
+   ========================================================================== */
+.auth-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(3, 5, 3, 0.82);
+  backdrop-filter: blur(12px);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  animation: fadeIn 0.2s ease;
+}
+
+.auth-card {
+  width: min(100%, 430px);
+  max-height: min(92vh, 760px);
+  overflow-y: auto;
+  background: #101611;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  padding: 30px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+}
+
+.auth-close {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: var(--text-muted);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+[dir="rtl"] .auth-close {
+  right: auto;
+  left: 18px;
+}
+
+.auth-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+}
+
+.auth-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.auth-mark span {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  background: var(--accent-lime);
+  color: var(--text-dark);
+  border-radius: var(--radius-sm);
+  font-size: 20px;
+  box-shadow: 0 4px 16px var(--accent-lime-glow);
+}
+
+.auth-mark small {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--accent-lime);
+  font-weight: 900;
+}
+
+.auth-card h2 {
+  font-size: 24px;
+  letter-spacing: -0.6px;
+  margin: 0 0 6px;
+}
+
+.auth-card form {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.auth-card input {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+}
+
+.auth-forgot {
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: right;
+  margin-top: -6px;
+  padding: 0;
+  cursor: pointer;
+}
+
+[dir="rtl"] .auth-forgot {
+  text-align: left;
+}
+
+.auth-forgot:hover, .auth-switch:hover {
+  color: var(--accent-lime);
+}
+
+.auth-switch {
+  margin-top: 14px;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  color: var(--accent-lime);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.auth-back {
+  color: var(--text-muted);
+}
+
+.auth-submit {
+  min-height: 46px;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.auth-error {
+  color: var(--accent-rose);
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-lime);
+  color: var(--text-dark);
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-lime-glow);
+  display: none;
+  z-index: 2000;
+  animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-dim);
+  padding-bottom: 20px;
+}
+
+/* Page Visibility & Animations */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+  animation: pageIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translate(-50%, 15px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ========================================================================== */
+@media (max-width: 1080px) {
+  .app {
+    grid-template-columns: 80px 1fr;
+  }
+  .sidebar {
+    padding: 20px 10px;
+    align-items: center;
+  }
+  .brand {
+    padding: 0 0 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    width: 100%;
+    justify-content: center;
+  }
+  .brandname, .navlabel, .nav button .navtext, .sidebottom {
+    display: none !important;
+  }
+  .nav button {
+    justify-content: center;
+    padding: 12px 0;
+  }
+  .nav button.active::before {
+    display: none;
+  }
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .lower {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .food-layout {
+    grid-template-columns: 1fr;
+  }
+  .exercise-grid {
+    grid-template-columns: 1fr;
+  }
+  .formgrid {
+    grid-template-columns: 1fr;
+  }
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+  }
+  .hero-stat {
+    width: 100%;
+    text-align: left;
+  }
+  [dir="rtl"] .hero-stat {
+    text-align: right;
+  }
+}
+
+/* Dedicated Mobile Bottom Dock (<= 640px) */
+@media (max-width: 640px) {
+  .app {
+    display: block;
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: calc(72px + env(safe-area-inset-bottom, 0px));
+    padding: 6px 12px calc(6px + env(safe-area-inset-bottom, 0px));
+    margin: 0;
+    z-index: 1000;
+    overflow: hidden;
+    background: rgba(13, 18, 14, 0.94);
+    backdrop-filter: blur(20px);
+    border: 0;
+    border-top: 1px solid var(--border-medium);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .sidebar > .brand, .sidebar .navlabel, .sidebar .sidebottom {
+    display: none !important;
+  }
+  
+  .sidebar > div:not(.brand) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .nav {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+  
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .nav button {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 4px 2px;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    border: 0;
+  }
+  
+  .nav button.active {
+    background: var(--accent-lime-soft);
+  }
+  
+  .nav button.active::before {
+    display: none;
+  }
+  
+  .nav .ico {
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    border-radius: 8px;
+    background: transparent;
+  }
+  
+  .nav button.active .ico {
+    background: var(--accent-lime);
+    color: var(--text-dark);
+  }
+  
+  .nav .ico svg {
+    width: 17px;
+    height: 17px;
+  }
+  
+  .nav button .navtext {
+    display: block !important;
+    font-size: 10px;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-muted);
+  }
+  
+  .nav button.active .navtext {
+    color: var(--accent-lime);
+    font-weight: 700;
+  }
+  
+  main {
+    padding: 16px 14px 28px;
+  }
+  
+  .topbar {
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+  }
+  
+  .stats, .daily-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
+  
+  .meal-card {
+    grid-template-columns: 1fr;
+  }
+  
+  .meal-macros {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  [dir="rtl"] .meal-macros {
+    text-align: right;
+  }
+  
+  .food-controls {
+    grid-template-columns: 1fr;
+  }
+  
+  .food-controls button {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="brandname">FIT<span>FORGE</span> <span class="brand-badge">PRO</span></div>
+    </div>
+    
+    <div>
+      <div class="navlabel" data-en="WORKSPACE" data-ar="القائمة الرئيسية">WORKSPACE</div>
+      <nav class="nav">
+        <button class="active" data-page="dashboard">
+          <span class="ico">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          </span>
+          <span class="navtext" data-en="Overview" data-ar="الرئيسية">Overview</span>
+        </button>
+        
+        <button data-page="nutrition">
+          <span class="ico">
+            <svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 0-9 9c0 4.97 4.03 9 9 9 2.12 0 4.07-.74 5.61-1.97L12 12V3.06A8.93 8.93 0 0 0 12 2z"/><path d="M12 12l8.4 4.86A9 9 0 0 0 21 11a9 9 0 0 0-9-9v10z"/></svg>
+          </span>
+          <span class="navtext" data-en="Nutrition" data-ar="التغذية">Nutrition</span>
+        </button>
+        
+        <button data-page="progress">
+          <span class="ico">
+            <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          </span>
+          <span class="navtext" data-en="Progress" data-ar="التقدم">Progress</span>
+        </button>
+        
+        <button data-page="workouts">
+          <span class="ico">
+            <svg viewBox="0 0 24 24"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1a3 3 0 0 1 0-4.24l-1.42-1.42a3 3 0 0 1 0-4.24l1.42-1.42a3 3 0 0 0 0-4.24l-1.42-1.42a3 3 0 0 0-4.24 0L12.92 4.4a3 3 0 0 1-4.24 0L7.26 2.98a3 3 0 0 0-4.24 0L2 4"/><path d="m14 14 3.5 3.5"/><path d="m6.5 6.5 3.5 3.5"/></svg>
+          </span>
+          <span class="navtext" data-en="Workouts" data-ar="التمارين">Workouts</span>
+        </button>
+        
+        <button data-page="profile">
+          <span class="ico">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </span>
+          <span class="navtext" data-en="My goals" data-ar="أهدافي">My goals</span>
+        </button>
+        
+        <button data-page="premiumtools">
+          <span class="ico">
+            <svg viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/></svg>
+          </span>
+          <span class="navtext" data-en="Smart tools" data-ar="الأدوات الذكية">Smart tools</span>
+        </button>
+      </nav>
+    </div>
+    
+    <div class="sidebottom">
+      <div class="sidebottom-badge">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        DAILY MOMENTUM
+      </div>
+      <strong data-en="Small steps. Big change." data-ar="خطوات صغيرة، فرق كبير.">Small steps. Big change.</strong>
+      <p data-en="Consistency beats perfection. Keep showing up." data-ar="الاستمرارية أهم من المثالية. استمر.">Consistency beats perfection. Keep showing up.</p>
+      <button onclick="go('profile')" data-en="View my goals" data-ar="شوف أهدافي">View my goals</button>
+    </div>
+  </aside>
+
+  <!-- MAIN VIEWPORT -->
+  <main>
+    <!-- TOP HEADER BAR -->
+    <header class="topbar">
+      <div>
+        <div class="eyebrow" data-en="YOUR PERSONAL FITNESS SPACE" data-ar="مساحتك الشخصية للياقة">YOUR PERSONAL FITNESS SPACE</div>
+        <h1 data-en="Let's get stronger." data-ar="يلا نبقى أقوى.">Let's get stronger.</h1>
+        <div class="muted" data-en="A little progress every day adds up." data-ar="كل يوم خطوة صغيرة بتفرق.">A little progress every day adds up.</div>
+      </div>
+      <div class="top-actions">
+        <button class="lang" id="langBtn">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          عربي
+        </button>
+        <button class="profile" id="accountBtn" onclick="openAuth()">
+          <div class="avatar" id="userAvatar">F</div>
+          <span class="pname" id="welcomeName" data-en="Sign in" data-ar="تسجيل الدخول">Sign in</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- 1. DASHBOARD PAGE                          -->
+    <!-- ========================================== -->
+    <section class="page active" id="page-dashboard">
+      <!-- Hero Banner -->
+      <div class="hero">
+        <div>
+          <div class="eyebrow" data-en="YOUR PLAN, YOUR PACE" data-ar="خطتك، وبالسرعة المناسبة ليك">YOUR PLAN, YOUR PACE</div>
+          <h2 data-en="Build habits.<br>Build your best self." data-ar="ابني عاداتك.<br>وابني أفضل نسخة منك.">Build habits.<br>Build your best self.</h2>
+          <p data-en="Track your food, train with purpose, and turn your goals into a routine that works for you." data-ar="تابع أكلك، تمرّن بهدف، وحوّل أهدافك لروتين يناسبك.">Track your food, train with purpose, and turn your goals into a routine that works for you.</p>
+          <div class="hero-actions">
+            <button class="btn" onclick="go('nutrition')" data-en="Log today's food ↗" data-ar="سجّل أكلك النهارده ↗">
+              Log today's food ↗
+            </button>
+            <button class="btn secondary" onclick="go('workouts')" data-en="Start workout" data-ar="ابدأ تمرينك">
+              Start workout
+            </button>
+          </div>
+        </div>
+        <div class="hero-stat">
+          <div class="eyebrow" data-en="DAILY TARGET" data-ar="هدف اليوم">DAILY TARGET</div>
+          <div class="big" id="heroCalories">2,400</div>
+          <small data-en="calories / day" data-ar="سعرة / يوم">calories / day</small>
+        </div>
+      </div>
+
+      <!-- 4 Key Metric Cards -->
+      <div class="grid stats">
+        <div class="card stat-card">
+          <div class="stat-top">
+            <span data-en="Calories eaten" data-ar="السعرات المستهلكة">Calories eaten</span>
+            <span class="stat-icon">
+              <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+            </span>
+          </div>
+          <div class="value"><span id="eaten">0</span> <small data-en="kcal" data-ar="سعرة">kcal</small></div>
+          <div class="track"><span id="calBar" style="width:0%"></span></div>
+          <div class="foot">
+            <span id="remaining">2,400 left</span>
+            <span id="calPct">0%</span>
+          </div>
+        </div>
+
+        <div class="card stat-card">
+          <div class="stat-top">
+            <span data-en="Protein" data-ar="البروتين">Protein</span>
+            <span class="stat-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+          </div>
+          <div class="value"><span id="protein">0</span><small> / <span id="proteinGoal">150</span> g</small></div>
+          <div class="track"><span id="proteinBar" style="width:0%"></span></div>
+          <div class="foot">
+            <span data-en="Daily target" data-ar="الهدف اليومي">Daily target</span>
+            <span id="proteinPct">0%</span>
+          </div>
+        </div>
+
+        <div class="card stat-card">
+          <div class="stat-top">
+            <span data-en="Current weight" data-ar="الوزن الحالي">Current weight</span>
+            <span class="stat-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+            </span>
+          </div>
+          <div class="value"><span id="currentWeight">68.0</span> <small>kg</small></div>
+          <div class="track"><span style="width:68%;background:linear-gradient(90deg,var(--accent-cyan),var(--accent-lime))"></span></div>
+          <div class="foot">
+            <span data-en="Latest entry" data-ar="آخر تسجيل">Latest entry</span>
+            <span style="color:var(--accent-lime);font-weight:700" id="weightChange">—</span>
+          </div>
+        </div>
+
+        <div class="card stat-card">
+          <div class="stat-top">
+            <span data-en="Workouts logged" data-ar="التمارين المسجلة">Workouts logged</span>
+            <span class="stat-icon">
+              <svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-2.34"/><path d="M18 14.66V17c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1v-2.34"/><path d="M6 4h12v7a6 6 0 0 1-12 0V4z"/></svg>
+            </span>
+          </div>
+          <div class="value" id="workoutCount">0</div>
+          <div class="track"><span style="width:40%;background:linear-gradient(90deg,var(--accent-amber),var(--accent-lime))"></span></div>
+          <div class="foot">
+            <span data-en="Keep the streak going" data-ar="كمّل على نفس النظام">Keep the streak going</span>
+            <span style="color:var(--accent-lime);font-weight:800">✦</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lower Grid: Macros & Quick Actions -->
+      <div class="grid lower">
+        <div>
+          <div class="section-head">
+            <h2 data-en="Today's macros" data-ar="مغذيات اليوم">Today's macros</h2>
+            <button onclick="go('nutrition')" data-en="View nutrition →" data-ar="عرض التغذية ←">View nutrition →</button>
+          </div>
+          <div class="card macro-list">
+            <div class="macro-row">
+              <div class="macro-icon protein">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div>
+                <strong data-en="Protein" data-ar="البروتين">Protein</strong>
+                <div class="track"><span id="mProteinBar" style="width:0%"></span></div>
+              </div>
+              <div class="macro-number" id="mProtein">0 / 150g</div>
+            </div>
+
+            <div class="macro-row">
+              <div class="macro-icon carbs">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
+              <div>
+                <strong data-en="Carbs" data-ar="الكربوهيدرات">Carbs</strong>
+                <div class="track"><span id="mCarbBar" style="width:0%;background:linear-gradient(90deg,#0284c7,var(--accent-cyan))"></span></div>
+              </div>
+              <div class="macro-number" id="mCarbs">0 / 280g</div>
+            </div>
+
+            <div class="macro-row">
+              <div class="macro-icon fats">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+              </div>
+              <div>
+                <strong data-en="Fats" data-ar="الدهون">Fats</strong>
+                <div class="track"><span id="mFatBar" style="width:0%;background:linear-gradient(90deg,#d97706,var(--accent-amber))"></span></div>
+              </div>
+              <div class="macro-number" id="mFats">0 / 75g</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-head">
+            <h2 data-en="Quick actions" data-ar="اختصارات سريعة">Quick actions</h2>
+          </div>
+          <div class="quick-actions">
+            <button class="quick" onclick="go('nutrition')">
+              <span class="qicon">
+                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              </span>
+              <div>
+                <strong data-en="Scan a meal" data-ar="حلّل وجبة">Scan a meal</strong>
+                <small data-en="Estimate food nutrition" data-ar="قدّر مغذيات الأكل">Estimate food nutrition</small>
+              </div>
+            </button>
+
+            <button class="quick" onclick="go('progress')">
+              <span class="qicon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </span>
+              <div>
+                <strong data-en="Log weight" data-ar="سجّل وزنك">Log weight</strong>
+                <small data-en="See your trend" data-ar="تابع التغيّر">See your trend</small>
+              </div>
+            </button>
+
+            <button class="quick" onclick="go('workouts')">
+              <span class="qicon">
+                <svg viewBox="0 0 24 24"><path d="M6 5v14M18 5v14M6 12h12"/></svg>
+              </span>
+              <div>
+                <strong data-en="Add workout" data-ar="أضف تمرين">Add workout</strong>
+                <small data-en="Record a session" data-ar="سجّل تمرينك">Record a session</small>
+              </div>
+            </button>
+
+            <button class="quick" onclick="go('profile')">
+              <span class="qicon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              </span>
+              <div>
+                <strong data-en="Set a goal" data-ar="حدّد هدفك">Set a goal</strong>
+                <small data-en="Personalize your plan" data-ar="خصّص خطتك">Personalize your plan</small>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 2. NUTRITION PAGE                          -->
+    <!-- ========================================== -->
+    <section class="page" id="page-nutrition">
+      <div class="section-head">
+        <div>
+          <h2 data-en="Nutrition workspace" data-ar="مساحة التغذية">Nutrition workspace</h2>
+          <span class="muted" data-en="Search · weigh · log" data-ar="ابحث · وزّن · سجّل">Search · weigh · log</span>
+        </div>
+      </div>
+
+      <!-- Today's Meals Daily Strip -->
+      <div class="card daily-strip">
+        <div class="section-head" style="margin-top:0">
+          <h2 data-en="Today's meals" data-ar="وجبات النهارده">Today's meals</h2>
+          <button class="btn secondary sm" onclick="clearFoods()" data-en="Clear day" data-ar="مسح اليوم">Clear day</button>
+        </div>
+        <div class="daily-summary">
+          <div class="mini-stat">
+            <small data-en="Calories" data-ar="السعرات">Calories</small>
+            <strong id="dayKcal">0 kcal</strong>
+          </div>
+          <div class="mini-stat">
+            <small data-en="Protein" data-ar="بروتين">Protein</small>
+            <strong id="dayProtein" style="color:var(--accent-lime)">0 g</strong>
+          </div>
+          <div class="mini-stat">
+            <small data-en="Carbs" data-ar="كارب">Carbs</small>
+            <strong id="dayCarbs" style="color:var(--accent-cyan)">0 g</strong>
+          </div>
+          <div class="mini-stat">
+            <small data-en="Fat" data-ar="دهون">Fat</small>
+            <strong id="dayFat" style="color:var(--accent-amber)">0 g</strong>
+          </div>
+        </div>
+        <div id="foodLog" class="listrows"></div>
+      </div>
+
+      <!-- Food Search & AI Photo Estimation -->
+      <div class="grid food-layout">
+        <!-- Search & Database -->
+        <div class="card">
+          <div class="eyebrow" data-en="FOOD SEARCH" data-ar="بحث الأكل">FOOD SEARCH</div>
+          <h2 data-en="Find almost any food" data-ar="دور على أي أكلة">Find almost any food</h2>
+          <p class="muted" data-en="Search ingredients or Egyptian meals, enter the amount in grams, and see estimated calories and macros before adding it." data-ar="ابحث عن مكوّن أو أكلة مصرية، اكتب الوزن بالجرام، وشوف السعرات والبروتين والكارب والدهون قبل ما تضيفها.">Search ingredients or Egyptian meals, enter the amount in grams, and see estimated calories and macros before adding it.</p>
+          
+          <div class="field" style="margin-top:14px">
+            <label data-en="Food name" data-ar="اسم الأكل">Food name</label>
+            <input id="foodSearch" placeholder="Search eggs, koshari, rice…" autocomplete="off">
+          </div>
+          
+          <div class="food-controls">
+            <div class="field" style="margin-bottom:0">
+              <label data-en="Amount (grams)" data-ar="الوزن (جرام)">Amount (grams)</label>
+              <input id="foodGrams" type="number" min="1" max="5000" value="100">
+              <div class="quick-grams-row">
+                <button type="button" class="gram-pill" onclick="$('foodGrams').value=50;renderFoods()">50g</button>
+                <button type="button" class="gram-pill" onclick="$('foodGrams').value=100;renderFoods()">100g</button>
+                <button type="button" class="gram-pill" onclick="$('foodGrams').value=150;renderFoods()">150g</button>
+                <button type="button" class="gram-pill" onclick="$('foodGrams').value=200;renderFoods()">200g</button>
+              </div>
+            </div>
+            <button class="btn" onclick="renderFoods()" data-en="Update values" data-ar="احسب الكمية">Update values</button>
+          </div>
+          
+          <div class="food-list" id="foodList" style="margin-top:16px"></div>
+          
+          <details style="margin-top:18px;border-top:1px solid var(--border-subtle);padding-top:14px">
+            <summary style="cursor:pointer;color:var(--accent-lime);font-weight:750;font-size:13.5px">
+              Can't find a food? Add custom nutrition / مش لاقي الأكلة؟ ضيفها يدويًا
+            </summary>
+            <p class="note" style="margin-top:8px">Enter values per 100 grams from the food label or reliable reference.</p>
+            <div class="formgrid" style="margin-top:10px">
+              <div class="field">
+                <label>Food Name / اسم الأكلة</label>
+                <input id="customFoodName" placeholder="e.g. Greek Yogurt / جبنة">
+              </div>
+              <div class="field">
+                <label>Calories / 100g</label>
+                <input id="customKcal" type="number" min="0">
+              </div>
+              <div class="field">
+                <label>Protein (g)</label>
+                <input id="customP" type="number" min="0" value="0">
+              </div>
+              <div class="field">
+                <label>Carbs (g)</label>
+                <input id="customC" type="number" min="0" value="0">
+              </div>
+              <div class="field">
+                <label>Fat (g)</label>
+                <input id="customF" type="number" min="0" value="0">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn" onclick="addCustomFood()">Add custom food</button>
+            </div>
+          </details>
+        </div>
+
+        <!-- AI Food Photo Analysis -->
+        <div class="card">
+          <div class="eyebrow" data-en="AI PHOTO ESTIMATE" data-ar="تقدير من الصورة">AI PHOTO ESTIMATE</div>
+          <h2 data-en="Analyze a meal photo" data-ar="حلّل صورة وجبتك">Analyze a meal photo</h2>
+          <p class="muted" data-en="Photo estimates are approximate. Weighing food gives better portion accuracy." data-ar="تقدير الصورة تقريبي؛ وزن الأكل بيدي دقة أحسن في الكمية.">Photo estimates are approximate. Weighing food gives better portion accuracy.</p>
+          
+          <label class="upload" id="uploadDropzone">
+            <input id="mealImage" type="file" accept="image/*">
+            <div class="camera">
+              <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </div>
+            <strong data-en="Choose or drop food photo" data-ar="اختار أو اسحب صورة الأكل">Choose or drop food photo</strong>
+            <div class="note">JPG · PNG · WEBP (Max 8 MB)</div>
+            <img id="preview" class="preview" alt="Meal preview">
+          </label>
+          
+          <div class="form-actions">
+            <button class="btn" id="analyzeBtn" onclick="analyzeMeal()" data-en="Analyze with AI ↗" data-ar="حلّل بالذكاء الاصطناعي ↗">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/></svg>
+              Analyze with AI ↗
+            </button>
+          </div>
+          
+          <div id="scanResult"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3. PROGRESS PAGE                           -->
+    <!-- ========================================== -->
+    <section class="page" id="page-progress">
+      <div class="section-head">
+        <h2 data-en="Your progress" data-ar="تقدمك">Your progress</h2>
+      </div>
+      
+      <div class="grid lower">
+        <!-- Weight History & Chart -->
+        <div class="card">
+          <div class="eyebrow" data-en="WEIGHT TRACKER" data-ar="متابعة الوزن">WEIGHT TRACKER</div>
+          <h2 data-en="Every check-in counts" data-ar="كل تسجيل بيفرق">Every check-in counts</h2>
+          
+          <div class="formgrid" style="margin-top:14px">
+            <div class="field">
+              <label data-en="Weight (kg)" data-ar="الوزن (كجم)">Weight (kg)</label>
+              <input id="weightInput" type="number" min="1" max="500" step=".1" placeholder="68.0">
+            </div>
+            <div class="field">
+              <label data-en="Date" data-ar="التاريخ">Date</label>
+              <input id="weightDate" type="date">
+            </div>
+          </div>
+          
+          <div class="form-actions" style="margin-top:0">
+            <button class="btn" onclick="addWeight()" data-en="Save weight" data-ar="احفظ الوزن">Save weight</button>
+          </div>
+          
+          <div class="section-head">
+            <h2 data-en="Weight history" data-ar="سجل الوزن">Weight history</h2>
+          </div>
+          <div id="weightChart" class="chart"></div>
+          <div id="weightLog" class="listrows"></div>
+        </div>
+
+        <!-- Target & Milestone -->
+        <div class="card">
+          <div class="eyebrow" data-en="YOUR TARGET" data-ar="هدفك">YOUR TARGET</div>
+          <h2 data-en="Progress at your pace" data-ar="تقدم بالسرعة المناسبة ليك">Progress at your pace</h2>
+          <p class="muted" data-en="Use regular weigh-ins under similar conditions to understand the trend, not day-to-day fluctuations." data-ar="سجّل وزنك بانتظام وفي ظروف متشابهة عشان تتابع الاتجاه، مش تغيّر يوم بيوم.">Use regular weigh-ins under similar conditions to understand the trend, not day-to-day fluctuations.</p>
+          
+          <div class="result">
+            <div class="muted" data-en="Current goal" data-ar="الهدف الحالي">Current goal</div>
+            <div class="resultnum" id="goalSummary">Build muscle</div>
+            <div class="muted" id="goalSub">Target 72 kg</div>
+          </div>
+          
+          <div class="section-head">
+            <h2 data-en="Recent check-ins" data-ar="آخر التسجيلات">Recent check-ins</h2>
+          </div>
+          <div id="weightRecent" class="listrows"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 4. WORKOUTS PAGE                           -->
+    <!-- ========================================== -->
+    <section class="page" id="page-workouts">
+      <div class="section-head">
+        <div>
+          <h2 data-en="Your training plan" data-ar="خطة تمرينك">Your training plan</h2>
+          <span class="muted" data-en="Personalized by schedule and equipment" data-ar="حسب أيامك والمعدات المتاحة">Personalized by schedule and equipment</span>
+        </div>
+      </div>
+
+      <!-- Plan Builder 01 -->
+      <div class="card">
+        <div class="eyebrow">PLAN BUILDER · 01</div>
+        <h2 data-en="Build a plan that fits your life" data-ar="اعمل نظام يناسب حياتك">Build a plan that fits your life</h2>
+        <p class="muted" data-en="Choose your days, split, place and equipment. FitForge will create a weekly routine with exercise guides and YouTube demos." data-ar="اختار عدد الأيام ونظام التقسيم ومكان التمرين والمعدات، وFitForge هيبني جدول أسبوعي بروابط شرح على يوتيوب.">Choose your days, split, place and equipment. FitForge will create a weekly routine with exercise guides and YouTube demos.</p>
+        
+        <div class="formgrid" style="margin-top:16px">
+          <div class="field">
+            <label data-en="Days per week" data-ar="كام يوم في الأسبوع؟">Days per week</label>
+            <select id="planDays">
+              <option value="2">2 days / يومين</option>
+              <option value="3" selected>3 days / 3 أيام</option>
+              <option value="4">4 days / 4 أيام</option>
+              <option value="5">5 days / 5 أيام</option>
+              <option value="6">6 days / 6 أيام</option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label data-en="Split preference" data-ar="نظام التقسيم">Split preference</label>
+            <select id="planSplit">
+              <option value="auto">Recommend for me / رشحلي</option>
+              <option value="ppl">Push / Pull / Legs (PPL)</option>
+              <option value="upperlower">Upper / Lower</option>
+              <option value="fullbody">Full Body</option>
+              <option value="bro">Bro Split</option>
+              <option value="arnold">Arnold Split</option>
+              <option value="phul">PHUL · Power + Hypertrophy</option>
+              <option value="pplul">PPL + Upper / Lower</option>
+              <option value="torso">Torso / Limbs</option>
+              <option value="strengthsplit">Strength Split</option>
+              <option value="home">Home Bodyweight</option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label data-en="Where do you train?" data-ar="بتتمرن فين؟">Where do you train?</label>
+            <select id="planPlace">
+              <option value="gym">Gym / جيم</option>
+              <option value="home">Home / بيت</option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label data-en="Equipment" data-ar="المعدات المتاحة">Equipment</label>
+            <select id="planEquipment">
+              <option value="all">Full Gym (Machines + Barbells + Dumbbells)</option>
+              <option value="dumbbells">Dumbbells only</option>
+              <option value="bodyweight">Bodyweight only / بدون معدات</option>
+              <option value="bands">Resistance bands</option>
+              <option value="machines">Machines only</option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label data-en="Experience" data-ar="مستواك">Experience</label>
+            <select id="planLevel">
+              <option value="beginner">Beginner / مبتدئ</option>
+              <option value="intermediate">Intermediate / متوسط</option>
+              <option value="advanced">Advanced / متقدم</option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label data-en="Main goal" data-ar="هدفك الأساسي">Main goal</label>
+            <select id="planGoal">
+              <option value="bulk">Bulking / تضخيم</option>
+              <option value="loss">Weight loss / تخسيس</option>
+              <option value="cut">Cutting / تنشيف</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button class="btn" onclick="generateWorkoutPlan()" data-en="Generate my weekly plan ✦" data-ar="اعمل جدولي الأسبوعي ✦">
+            Generate my weekly plan ✦
+          </button>
+        </div>
+      </div>
+
+      <div id="generatedPlan" style="margin-top:18px"></div>
+
+      <!-- Custom Split 02 -->
+      <div class="card" style="margin-top:20px" id="customPlanCard">
+        <div class="eyebrow">CUSTOM SPLIT · 02</div>
+        <h2 data-en="Build your own week" data-ar="صمّم أسبوعك بنفسك">Build your own week</h2>
+        <p class="muted" data-en="Choose any workout for each day, add rest days, and edit your schedule whenever you want. You can repeat a muscle group as often as you choose." data-ar="اختار تمرين كل يوم براحتك، وحدد أيام الراحة، وعدّل الجدول وقت ما تحب. تقدر تكرر أي عضلة على حسب اختيارك.">Choose any workout for each day, add rest days, and edit your schedule whenever you want. You can repeat a muscle group as often as you choose.</p>
+        
+        <div class="formgrid" style="margin-top:14px;margin-bottom:14px">
+          <div class="field">
+            <label data-en="Quick start template" data-ar="ابدأ بنظام جاهز وعدّل عليه">Quick start template</label>
+            <select id="customTemplate" onchange="loadCustomTemplate()">
+              <option value="manual">My own custom week</option>
+              <option value="ppl">Push / Pull / Legs</option>
+              <option value="upperlower">Upper / Lower</option>
+              <option value="fullbody">Full body</option>
+              <option value="bro">Bro split</option>
+              <option value="arnold">Arnold split</option>
+              <option value="phul">PHUL · Power + Hypertrophy</option>
+              <option value="pplul">PPL + Upper / Lower</option>
+              <option value="torso">Torso / Limbs</option>
+              <option value="strength">Strength focus</option>
+              <option value="home">Home bodyweight</option>
+            </select>
+          </div>
+        </div>
+        
+        <div id="customWeekRows" class="listrows"></div>
+        
+        <div class="form-actions" style="gap:10px;flex-wrap:wrap">
+          <button class="btn" onclick="saveCustomPlan()" data-en="Save my custom week ✦" data-ar="احفظ جدولي المخصص ✦">Save my custom week ✦</button>
+          <button class="btn secondary" onclick="resetCustomPlan()" data-en="Reset week" data-ar="إعادة ضبط الأسبوع">Reset week</button>
+        </div>
+        
+        <div id="customPlanOutput" style="margin-top:16px"></div>
+      </div>
+
+      <!-- Quick Session Logger Form -->
+      <div class="card" style="margin-top:20px">
+        <div class="eyebrow">SESSION LOGGER</div>
+        <h2 data-en="Record a completed workout" data-ar="سجّل تمرين خلصته">Record a completed workout</h2>
+        <div class="formgrid" style="margin-top:12px">
+          <div class="field">
+            <label data-en="Workout Name" data-ar="اسم التمرين">Workout Name</label>
+            <input id="workoutName" placeholder="e.g. Chest & Triceps or Leg Day" value="Upper Body Hypertrophy">
+          </div>
+          <div class="field">
+            <label data-en="Duration (minutes)" data-ar="المدة (بالدقائق)">Duration (minutes)</label>
+            <input id="workoutDuration" type="number" min="5" max="300" value="45">
+          </div>
+          <div class="field" style="grid-column: 1 / -1">
+            <label data-en="Date" data-ar="التاريخ">Date</label>
+            <input id="workoutDate" type="date">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn" onclick="addWorkout()" data-en="Save workout session" data-ar="احفظ جلسة التمرين">Save workout session</button>
+        </div>
+      </div>
+
+      <!-- Exercise Library -->
+      <div class="section-head">
+        <div>
+          <h2 data-en="Exercise library" data-ar="مكتبة التمارين">Exercise library</h2>
+          <span class="muted" data-en="Video guides open on YouTube" data-ar="فيديوهات الشرح على يوتيوب">Video guides open on YouTube</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="field" style="margin-bottom:12px">
+          <label data-en="Search exercise or muscle" data-ar="ابحث عن تمرين أو عضلة">Search exercise or muscle</label>
+          <input id="exerciseSearch" placeholder="صدر، ظهر، كتف، squat, curl..." />
+        </div>
+        <div id="exerciseLibrary" class="exercise-grid" style="margin-top:16px"></div>
+      </div>
+
+      <!-- Training History -->
+      <div class="section-head">
+        <h2 data-en="Training history" data-ar="سجل التمارين">Training history</h2>
+        <button class="btn secondary sm" onclick="clearWorkouts()" data-en="Clear history" data-ar="مسح السجل">Clear history</button>
+      </div>
+      <div class="card">
+        <div class="daily-summary" style="margin-bottom:14px">
+          <div class="mini-stat">
+            <small data-en="Total Sessions" data-ar="إجمالي التمارين">Total Sessions</small>
+            <strong id="totalWorkouts">0</strong>
+          </div>
+          <div class="mini-stat">
+            <small data-en="Total Minutes" data-ar="إجمالي الدقائق">Total Minutes</small>
+            <strong id="totalMinutes">0</strong>
+          </div>
+        </div>
+        <div id="workoutLog" class="listrows"></div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 5. PROFILE & GOALS PAGE                    -->
+    <!-- ========================================== -->
+    <section class="page" id="page-profile">
+      <div class="section-head">
+        <h2 data-en="Personal goals" data-ar="أهدافك الشخصية">Personal goals</h2>
+      </div>
+      
+      <div class="grid food-layout">
+        <!-- Profile Inputs -->
+        <div class="card">
+          <div class="eyebrow" data-en="YOUR PROFILE" data-ar="بياناتك">YOUR PROFILE</div>
+          <h2 data-en="Make it yours" data-ar="خصّص خطتك">Make it yours</h2>
+          
+          <div class="formgrid" style="margin-top:16px">
+            <div class="field">
+              <label data-en="Age" data-ar="العمر">Age</label>
+              <input id="age" type="number" min="13" max="100" value="22">
+            </div>
+            <div class="field">
+              <label data-en="Sex used for estimate" data-ar="الجنس لحساب التقدير">Sex used for estimate</label>
+              <select id="sex">
+                <option value="male">Male / ذكر</option>
+                <option value="female">Female / أنثى</option>
+                <option value="other">Prefer not to say / لا أفضل التحديد</option>
+              </select>
+            </div>
+            <div class="field">
+              <label data-en="Height (cm)" data-ar="الطول (سم)">Height (cm)</label>
+              <input id="height" type="number" min="100" max="250" value="175">
+            </div>
+            <div class="field">
+              <label data-en="Current weight (kg)" data-ar="الوزن الحالي (كجم)">Current weight (kg)</label>
+              <input id="startWeight" type="number" min="25" max="350" step=".1" value="68">
+            </div>
+            <div class="field">
+              <label data-en="Activity level" data-ar="مستوى النشاط">Activity level</label>
+              <select id="activity">
+                <option value="1.2">Sedentary / قليل الحركة</option>
+                <option value="1.375">Light / خفيف</option>
+                <option value="1.55" selected>Moderate / متوسط</option>
+                <option value="1.725">Very active / نشيط جدًا</option>
+              </select>
+            </div>
+            <div class="field">
+              <label data-en="Goal" data-ar="الهدف">Goal</label>
+              <select id="goal">
+                <option value="bulk">Bulking / تضخيم</option>
+                <option value="loss">Weight loss / تخسيس</option>
+                <option value="cut">Cutting / تنشيف</option>
+                <option value="maintain">Maintain weight / تثبيت الوزن</option>
+              </select>
+            </div>
+            <div class="field" style="grid-column: 1 / -1">
+              <label data-en="Target weight (kg)" data-ar="الوزن المستهدف (كجم)">Target weight (kg)</label>
+              <input id="targetWeight" type="number" min="25" max="350" step=".1" value="72">
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button class="btn" onclick="saveProfile()" data-en="Calculate my plan" data-ar="احسب خطتي">Calculate my plan</button>
+          </div>
+          <div id="profileResult"></div>
+        </div>
+
+        <!-- Targets & Macro Plan -->
+        <div class="card">
+          <div class="eyebrow" data-en="YOUR DAILY PLAN" data-ar="خطتك اليومية">YOUR DAILY PLAN</div>
+          <h2 data-en="A starting point, not a rule" data-ar="بداية مناسبة، مش قاعدة ثابتة">A starting point, not a rule</h2>
+          
+          <div class="result">
+            <div class="muted" data-en="Estimated daily calories" data-ar="السعرات اليومية التقديرية">Estimated daily calories</div>
+            <div class="resultnum" id="planCalories">2,400 kcal</div>
+            <div class="muted" id="planLabel">Build muscle</div>
+          </div>
+          
+          <div class="section-head">
+            <h2 data-en="Suggested macro targets" data-ar="أهداف المغذيات المقترحة">Suggested macro targets</h2>
+          </div>
+          <div class="macro-list">
+            <div class="macro-row">
+              <div class="macro-icon protein">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div>
+                <strong data-en="Protein" data-ar="البروتين">Protein</strong>
+                <small data-en="Supports muscle repair" data-ar="يساعد على تعافي العضلات">Supports muscle repair</small>
+              </div>
+              <div class="macro-number" id="planProtein">150 g</div>
+            </div>
+
+            <div class="macro-row">
+              <div class="macro-icon carbs">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
+              <div>
+                <strong data-en="Carbs" data-ar="الكربوهيدرات">Carbs</strong>
+                <small data-en="Training fuel" data-ar="وقود التمرين">Training fuel</small>
+              </div>
+              <div class="macro-number" id="planCarbs">280 g</div>
+            </div>
+
+            <div class="macro-row">
+              <div class="macro-icon fats">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+              </div>
+              <div>
+                <strong data-en="Fats" data-ar="الدهون">Fats</strong>
+                <small data-en="Essential daily energy" data-ar="مصدر طاقة أساسي">Essential daily energy</small>
+              </div>
+              <div class="macro-number" id="planFats">75 g</div>
+            </div>
+          </div>
+          
+          <p class="note" data-en="Calorie needs are estimates. If you are under 18, pregnant, have a medical condition, or have a history of disordered eating, get tailored guidance from a qualified health professional before dieting." data-ar="احتياجات السعرات تقديرية. لو عمرك أقل من 18 سنة أو عندك حالة صحية، استشر مختصًا مؤهلًا قبل تغيير أكلك أو اتباع حمية.">
+            Calorie needs are estimates. If you are under 18, pregnant, have a medical condition, or have a history of disordered eating, get tailored guidance from a qualified health professional before dieting.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 6. SMART TOOLS PAGE                        -->
+    <!-- ========================================== -->
+    <section class="page" id="page-premiumtools">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">FITFORGE SMART TOOLS</div>
+          <h2 data-en="Tools built around your real life" data-ar="أدوات تناسب حياتك وميزانيتك">Tools built around your real life</h2>
+          <p class="muted" data-en="Prototype features. Results are estimates, not medical or body-fat measurements." data-ar="مميزات تجريبية. النتائج تقديرية وليست قياسًا طبيًا أو دقيقًا لنسبة الدهون.">Prototype features. Results are estimates, not medical or body-fat measurements.</p>
+        </div>
+      </div>
+      
+      <div class="grid food-layout">
+        <!-- 01 Advanced Body Tracker -->
+        <div class="card">
+          <div class="eyebrow">01 · ADVANCED BODY TRACKER</div>
+          <h2 data-en="Track your body changes" data-ar="تابع تغيّر جسمك">Track your body changes</h2>
+          <p class="muted" data-en="Add measurements and an optional progress photo. Your photo stays in this browser in this prototype." data-ar="سجّل قياساتك وأضف صورة اختيارية لمتابعة التقدم. الصورة تظل في المتصفح على هذا الجهاز في النسخة التجريبية.">Add measurements and an optional progress photo. Your photo stays in this browser in this prototype.</p>
+          
+          <label class="upload">
+            <div class="camera">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <strong data-en="Choose progress photo (optional)" data-ar="اختار صورة للتقدم (اختياري)">Choose progress photo (optional)</strong>
+            <input id="bodyPhoto" type="file" accept="image/*" onchange="previewBodyPhoto(event)">
+            <img id="bodyPhotoPreview" class="preview" alt="Body progress preview">
+            <small class="note" data-en="Use ordinary workout clothes; face can be cropped out." data-ar="استخدم ملابس رياضية عادية ويمكنك قص الوجه من الصورة.">Use ordinary workout clothes; face can be cropped out.</small>
+          </label>
+          
+          <div class="formgrid" style="margin-top:16px">
+            <div class="field"><label data-en="Date" data-ar="التاريخ">Date</label><input id="bodyDate" type="date"></div>
+            <div class="field"><label data-en="Weight (kg)" data-ar="الوزن (كجم)">Weight (kg)</label><input id="bodyWeight" type="number" min="25" max="350" step="0.1" placeholder="68"></div>
+            <div class="field"><label data-en="Waist (cm)" data-ar="محيط الخصر (سم)">Waist (cm)</label><input id="bodyWaist" type="number" min="30" max="250" step="0.1" placeholder="80"></div>
+            <div class="field"><label data-en="Chest (cm)" data-ar="محيط الصدر (سم)">Chest (cm)</label><input id="bodyChest" type="number" min="30" max="250" step="0.1" placeholder="95"></div>
+            <div class="field"><label data-en="Arm (cm)" data-ar="محيط الذراع (سم)">Arm (cm)</label><input id="bodyArm" type="number" min="10" max="100" step="0.1" placeholder="30"></div>
+            <div class="field"><label data-en="Thigh (cm)" data-ar="محيط الفخذ (سم)">Thigh (cm)</label><input id="bodyThigh" type="number" min="20" max="150" step="0.1" placeholder="50"></div>
+          </div>
+          
+          <div class="form-actions">
+            <button class="btn" onclick="saveBodyEntry()" data-en="Save measurement" data-ar="احفظ القياسات">Save measurement</button>
+            <button class="btn secondary" onclick="renderBodyEntries()" data-en="Refresh history" data-ar="تحديث السجل">Refresh history</button>
+          </div>
+          <div id="bodyHistory" class="listrows"></div>
+        </div>
+
+        <!-- 02 Smart Food Swap & 03 Budget Meal Planner -->
+        <div class="card">
+          <!-- Food Swap -->
+          <div class="eyebrow">02 · SMART FOOD SWAP</div>
+          <h2 data-en="Swap a food, keep your goal" data-ar="بدّل أكلك وحافظ على هدفك">Swap a food, keep your goal</h2>
+          <p class="muted" data-en="Choose a food and compare it with an affordable alternative. Values are approximate per 100 g." data-ar="اختار أكلة وقارنها ببديل اقتصادي. القيم تقريبية لكل 100 جرام.">Choose a food and compare it with an affordable alternative. Values are approximate per 100 g.</p>
+          
+          <div class="field" style="margin-top:14px">
+            <label data-en="Food you planned to eat" data-ar="الأكلة الأصلية">Food you planned to eat</label>
+            <select id="swapFrom">
+              <option value="chicken">Chicken breast / صدور فراخ</option>
+              <option value="egg">Egg / بيض</option>
+              <option value="rice">Cooked rice / رز مطبوخ</option>
+              <option value="ful">Fava beans / فول</option>
+              <option value="koshari">Koshari / كشري</option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label data-en="Alternative" data-ar="البديل">Alternative</label>
+            <select id="swapTo">
+              <option value="egg">Egg / بيض</option>
+              <option value="ful">Fava beans / فول</option>
+              <option value="lentils">Lentils / عدس</option>
+              <option value="chicken">Chicken breast / صدور فراخ</option>
+              <option value="rice">Cooked rice / رز مطبوخ</option>
+              <option value="potato">Potato, boiled / بطاطس مسلوقة</option>
+              <option value="koshari">Koshari / كشري</option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label data-en="Portion (grams)" data-ar="الكمية بالجرام">Portion (grams)</label>
+            <input id="swapGrams" type="number" min="10" max="1500" value="100">
+          </div>
+          
+          <div class="form-actions">
+            <button class="btn" onclick="compareSwap()" data-en="Compare foods" data-ar="قارن الأكلتين">Compare foods</button>
+          </div>
+          <div id="swapResult" class="result" style="display:none"></div>
+
+          <!-- Budget Meal Planner -->
+          <div style="border-top:1px solid var(--border-subtle);margin-top:30px;padding-top:20px">
+            <div class="eyebrow">03 · BUDGET MEAL PLANNER</div>
+            <h2 data-en="Build a week within your budget" data-ar="اعمل نظام أسبوع على قد ميزانيتك">Build a week within your budget</h2>
+            
+            <div class="formgrid" style="margin-top:14px">
+              <div class="field">
+                <label data-en="Weekly food budget (EGP)" data-ar="ميزانية الأكل الأسبوعية (جنيه)">Weekly food budget (EGP)</label>
+                <input id="mealBudget" type="number" min="50" max="50000" value="500">
+              </div>
+              <div class="field">
+                <label data-en="Main goal" data-ar="هدفك الأساسي">Main goal</label>
+                <select id="mealGoal">
+                  <option value="bulk">Build muscle / تضخيم</option>
+                  <option value="loss">Weight loss / تخسيس</option>
+                  <option value="cut">Cutting / تنشيف</option>
+                  <option value="maintain">Maintain / تثبيت</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="field">
+              <label data-en="Foods to avoid (optional)" data-ar="أكلات مش عايزها (اختياري)">Foods to avoid (optional)</label>
+              <input id="mealAvoid" placeholder="e.g. eggs, chicken / بيض، فراخ">
+            </div>
+            
+            <div class="form-actions">
+              <button class="btn" onclick="generateBudgetPlan()" data-en="Generate weekly plan" data-ar="اعمل خطة الأسبوع">Generate weekly plan</button>
+            </div>
+            
+            <div id="budgetPlanResult"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <strong data-en="About photo analysis" data-ar="عن تحليل الصور">About photo analysis</strong>
+        <p class="muted" style="margin-top:6px" data-en="This build stores a photo preview and body measurements for progress tracking; it does not yet use an AI vision model to analyze body composition. Photos alone cannot reliably measure body fat or diagnose what your body needs. Workout suggestions should also consider age, experience, available equipment, and injuries." data-ar="النسخة دي تحفظ معاينة الصورة والقياسات لمتابعة التقدم؛ لكنها لا تستخدم حتى الآن نموذج رؤية AI لتحليل تركيب الجسم. الصور وحدها لا تقيس الدهون بدقة ولا تشخّص احتياجات الجسم. لازم التمرين يراعي السن والخبرة والمعدات والإصابات.">
+          This build stores a photo preview and body measurements for progress tracking; it does not yet use an AI vision model to analyze body composition. Photos alone cannot reliably measure body fat or diagnose what your body needs. Workout suggestions should also consider age, experience, available equipment, and injuries.
+        </p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      FITFORGE · Sign in to sync your profile, food logs, workouts, goals, custom plans, and progress across devices.
+    </footer>
+  </main>
+</div>
+
+<!-- ========================================== -->
+<!-- AUTH MODAL                                 -->
+<!-- ========================================== -->
+<div id="authModal" class="auth-backdrop" style="display:none">
+  <div class="auth-card">
+    <button class="auth-close" onclick="closeAuth()" aria-label="Close">×</button>
+    
+    <div class="auth-mark">
+      <span>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </span>
+      <small>FITFORGE ACCOUNT</small>
+    </div>
+    
+    <h2 id="authTitle">Welcome back</h2>
+    <p class="muted" id="authSubtitle">Sign in to continue your fitness journey.</p>
+    
+    <form id="authForm">
+      <div class="field" id="authNameField" style="display:none">
+        <label for="authName">Your name</label>
+        <input id="authName" autocomplete="name" placeholder="Your full name" />
+      </div>
+      
+      <div class="field" id="authEmailField">
+        <label for="authEmail">Email address</label>
+        <input id="authEmail" type="email" required autocomplete="email" placeholder="you@example.com" />
+      </div>
+      
+      <div class="field" id="authCodeField" style="display:none">
+        <label for="authCode">6-digit email code</label>
+        <input id="authCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="000000" />
+      </div>
+      
+      <div class="field" id="authPasswordField">
+        <label for="authPassword">Password</label>
+        <input id="authPassword" type="password" required minlength="8" autocomplete="current-password" placeholder="At least 8 characters" />
+      </div>
+      
+      <div class="field" id="authConfirmField" style="display:none">
+        <label for="authConfirmPassword">Confirm password</label>
+        <input id="authConfirmPassword" type="password" minlength="8" autocomplete="new-password" placeholder="Enter the same password again" />
+      </div>
+      
+      <button type="button" class="auth-forgot" id="authForgot" onclick="startForgotPassword()">Forgot password?</button>
+      <button type="button" class="auth-forgot" id="authResend" style="display:none;text-align:center" onclick="resendVerificationCode()">Resend verification code</button>
+      
+      <p class="auth-error" id="authError" role="status" aria-live="polite"></p>
+      
+      <button class="btn auth-submit" style="width:100%" id="authSubmit">Sign in</button>
+    </form>
+    
+    <button class="auth-switch" id="authSwitch" onclick="toggleAuthMode()">Create a new account</button>
+    <button class="auth-switch auth-back" id="authBack" style="display:none" onclick="backToAuth()">← Back to sign in</button>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast" class="toast"></div>
+
+<!-- ========================================== -->
+<!-- JAVASCRIPT LOGIC                           -->
+<!-- ========================================== -->
+<script>
+const $ = id => document.getElementById(id);
+let authMode = 'login', authStep = 'form', currentUser = null;
+
+function authText(id, text) { $(id).textContent = text; }
+
+function openAuth() {
+  if (currentUser) {
+    if (confirm('Sign out of FitForge?')) {
+      localStorage.removeItem('fitforge-token');
+      currentUser = null;
+      clearAccountLocalData();
+      updateAccountUI();
+      openAuth();
+    }
+    return;
+  }
+  $('authModal').style.display = 'grid';
+  resetAuth('login');
+}
+
+function closeAuth() { $('authModal').style.display = 'none'; }
+
+function resetAuth(mode = 'login') {
+  authMode = mode;
+  authStep = 'form';
+  $('authSubmit').type = 'submit';
+  $('authSubmit').onclick = null;
+  $('authForm').reset();
+  $('authEmail').readOnly = false;
+  $('authCode').required = false;
+  $('authPassword').required = mode === 'login';
+  $('authConfirmPassword').required = false;
+  $('authError').textContent = '';
+  $('authNameField').style.display = mode === 'register' ? 'block' : 'none';
+  $('authEmailField').style.display = 'block';
+  $('authCodeField').style.display = 'none';
+  $('authPasswordField').style.display = mode === 'login' ? 'block' : 'none';
+  $('authConfirmField').style.display = 'none';
+  $('authForgot').style.display = mode === 'login' ? 'block' : 'none';
+  $('authResend').style.display = 'none';
+  $('authSwitch').style.display = 'block';
+  $('authBack').style.display = 'none';
+  $('authSubmit').disabled = false;
+  $('authSubmit').textContent = mode === 'login' ? 'Sign in' : 'Send verification code';
+  $('authTitle').textContent = mode === 'login' ? 'Welcome back' : 'Create your FitForge account';
+  $('authSubtitle').textContent = mode === 'login' ? 'Sign in with your email and password.' : 'First, enter your name and email. We’ll send you a verification code.';
+  $('authPassword').required = mode === 'login';
+  $('authPassword').autocomplete = mode === 'login' ? 'current-password' : 'new-password';
+  $('authSwitch').textContent = mode === 'login' ? 'New to FitForge? Create an account' : 'Already have an account? Sign in';
+}
+
+function toggleAuthMode() { resetAuth(authMode === 'login' ? 'register' : 'login'); }
+function backToAuth() { resetAuth('login'); }
+
+function updateAccountUI() {
+  if (currentUser) {
+    $('welcomeName').textContent = 'Hi, ' + currentUser.name + '!';
+    $('userAvatar').textContent = (currentUser.name || 'F').trim().charAt(0).toUpperCase();
+    $('authModal').style.display = 'none';
+  } else {
+    $('welcomeName').textContent = state.lang === 'ar' ? 'تسجيل الدخول' : 'Sign in';
+    $('userAvatar').textContent = 'F';
+  }
+}
+
+async function authRequest(path, payload) {
+  const r = await fetch('/api/auth/' + path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  const d = await r.json();
+  if (!r.ok) throw new Error(d.error || 'Something went wrong.');
+  return d;
+}
+
+function authError(message) { $('authError').textContent = message; }
+
+$('authForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  authError('');
+  $('authSubmit').disabled = true;
+  const email = $('authEmail').value.trim().toLowerCase();
+  
+  try {
+    if (authMode === 'login') {
+      const d = await authRequest('login', { email, password: $('authPassword').value });
+      localStorage.setItem('fitforge-token', d.token);
+      currentUser = d.user;
+      await syncAccountDataOnLogin();
+      updateAccountUI();
+      toast('Welcome back, ' + currentUser.name + '!');
+      return;
+    }
+    if (authMode === 'register' && authStep === 'form') {
+      await authRequest('register/start', { name: $('authName').value.trim(), email });
+      authStep = 'code';
+      $('authNameField').style.display = 'none';
+      $('authEmail').readOnly = true;
+      $('authCodeField').style.display = 'block';
+      $('authPasswordField').style.display = 'none';
+      $('authConfirmField').style.display = 'none';
+      $('authForgot').style.display = 'none';
+      $('authResend').style.display = 'block';
+      $('authSwitch').style.display = 'none';
+      $('authSubmit').textContent = 'Verify code';
+      $('authTitle').textContent = 'Check your inbox';
+      $('authSubtitle').textContent = 'Enter the 6-digit code sent to your email. The code expires in 10 minutes.';
+      $('authPassword').required = false;
+      $('authCode').required = true;
+      $('authCode').focus();
+      authError('Verification code sent. Check your inbox and spam folder.');
+      return;
+    }
+    if (authMode === 'register' && authStep === 'code') {
+      await authRequest('register/check-code', { email, code: $('authCode').value.trim() });
+      authStep = 'password';
+      $('authCodeField').style.display = 'none';
+      $('authPasswordField').style.display = 'block';
+      $('authConfirmField').style.display = 'block';
+      $('authResend').style.display = 'none';
+      $('authSubmit').textContent = 'Create account';
+      $('authTitle').textContent = 'Create your password';
+      $('authSubtitle').textContent = 'Email verified. Choose a password and enter it again to confirm.';
+      $('authPassword').required = true;
+      $('authConfirmPassword').required = true;
+      $('authCode').required = false;
+      $('authPassword').value = '';
+      $('authConfirmPassword').value = '';
+      $('authPassword').focus();
+      return;
+    }
+    if (authMode === 'register' && authStep === 'password') {
+      if ($('authPassword').value.length < 8) throw new Error('Password must be at least 8 characters.');
+      if ($('authPassword').value !== $('authConfirmPassword').value) throw new Error('Passwords do not match. Please enter the same password twice.');
+      await authRequest('register/verify', {
+        email,
+        code: $('authCode').value.trim(),
+        password: $('authPassword').value,
+        confirmPassword: $('authConfirmPassword').value
+      });
+      resetAuth('login');
+      $('authEmail').value = email;
+      authError('Account created successfully! Now sign in with your email and password.');
+      $('authTitle').textContent = 'You’re all set!';
+      $('authSubtitle').textContent = 'Your FitForge account is ready. Sign in to get started.';
+      toast('Account created — now sign in!');
+      return;
+    }
+    if (authMode === 'forgot' && authStep === 'verify') {
+      if ($('authPassword').value !== $('authConfirmPassword').value) throw new Error('Passwords do not match.');
+      await authRequest('forgot/reset', {
+        email,
+        code: $('authCode').value.trim(),
+        password: $('authPassword').value,
+        confirmPassword: $('authConfirmPassword').value
+      });
+      resetAuth('login');
+      $('authEmail').value = email;
+      authError('Password changed successfully. Sign in with your new password.');
+      $('authTitle').textContent = 'Password updated';
+      $('authSubtitle').textContent = 'Your password has been changed. You can sign in now.';
+      return;
+    }
+  } catch (err) {
+    authError(err.message);
+  } finally {
+    $('authSubmit').disabled = false;
+  }
+});
+
+async function resendVerificationCode() {
+  authError('');
+  $('authResend').disabled = true;
+  try {
+    const name = $('authName').value.trim();
+    const email = $('authEmail').value.trim().toLowerCase();
+    await authRequest('register/resend', { name, email });
+    authError('A new code has been sent. Check your inbox and spam folder.');
+  } catch (err) {
+    authError(err.message);
+  } finally {
+    $('authResend').disabled = false;
+  }
+}
+
+async function startForgotPassword() {
+  authMode = 'forgot';
+  authStep = 'email';
+  $('authSubmit').type = 'button';
+  $('authError').textContent = '';
+  $('authNameField').style.display = 'none';
+  $('authCodeField').style.display = 'none';
+  $('authPasswordField').style.display = 'none';
+  $('authConfirmField').style.display = 'none';
+  $('authForgot').style.display = 'none';
+  $('authSwitch').style.display = 'none';
+  $('authBack').style.display = 'block';
+  $('authEmailField').style.display = 'block';
+  $('authEmail').required = true;
+  $('authTitle').textContent = 'Reset your password';
+  $('authSubtitle').textContent = 'Enter your account email and we’ll send a reset code.';
+  $('authSubmit').textContent = 'Send reset code';
+  $('authSubmit').onclick = async () => {
+    authError('');
+    $('authSubmit').disabled = true;
+    try {
+      const email = $('authEmail').value.trim().toLowerCase();
+      await authRequest('forgot/start', { email });
+      authStep = 'verify';
+      $('authSubmit').type = 'submit';
+      $('authCodeField').style.display = 'block';
+      $('authPasswordField').style.display = 'block';
+      $('authConfirmField').style.display = 'block';
+      $('authPassword').required = true;
+      $('authConfirmPassword').required = true;
+      $('authCode').required = true;
+      $('authPassword').value = '';
+      $('authConfirmPassword').value = '';
+      $('authSubmit').textContent = 'Reset password';
+      $('authTitle').textContent = 'Choose a new password';
+      $('authSubtitle').textContent = 'Enter the code from your email and your new password twice.';
+      $('authSubmit').onclick = null;
+    } catch (err) {
+      authError(err.message);
+    } finally {
+      $('authSubmit').disabled = false;
+    }
+  };
+}
+
+(async () => {
+  const token = localStorage.getItem('fitforge-token');
+  if (token) {
+    try {
+      const r = await fetch('/api/auth/me', { headers: { Authorization: 'Bearer ' + token } });
+      const d = await r.json();
+      if (r.ok) {
+        currentUser = d.user;
+        await syncAccountDataOnLogin();
+      } else {
+        localStorage.removeItem('fitforge-token');
+      }
+    } catch {}
+    updateAccountUI();
+  }
+})();
+
+const defaultState = {
+  lang: 'en',
+  profile: { age: 22, sex: 'male', height: 175, weight: 68, activity: 1.55, goal: 'bulk', target: 72, calories: 2400, protein: 150, carbs: 280, fats: 75 },
+  foods: [],
+  weights: [],
+  workouts: []
+};
+
+let state;
+try {
+  state = { ...defaultState, ...JSON.parse(localStorage.getItem('fitforge-v1') || '{}') };
+  state.profile = { ...defaultState.profile, ...(state.profile || {}) };
+  state.foods = state.foods || [];
+  state.weights = state.weights || [];
+  state.workouts = state.workouts || [];
+} catch (e) {
+  state = structuredClone(defaultState);
+}
+
+const foods = [
+  { id: 'egg', en: 'Whole egg, cooked', ar: 'بيضة كاملة مطهية', kcal: 155, p: 13, c: 1.1, f: 11.0, serving: 'per 100 g' },
+  { id: 'eggwhite', en: 'Egg white', ar: 'بياض البيض', kcal: 52, p: 10.9, c: 0.7, f: 0.2, serving: 'per 100 g' },
+  { id: 'chicken', en: 'Chicken breast, cooked', ar: 'صدر فراخ مطهي', kcal: 165, p: 31, c: 0, f: 3.6, serving: 'per 100 g' },
+  { id: 'rice', en: 'White rice, cooked', ar: 'رز أبيض مطهي', kcal: 130, p: 2.7, c: 28.2, f: 0.3, serving: 'per 100 g' },
+  { id: 'koshari', en: 'Koshari, average', ar: 'كشري متوسط', kcal: 160, p: 5, c: 27, f: 3.2, serving: 'per 100 g' },
+  { id: 'ful', en: 'Fava beans, cooked', ar: 'فول مدمس', kcal: 110, p: 7.6, c: 19.7, f: 0.4, serving: 'per 100 g' },
+  { id: 'baladibread', en: 'Baladi bread', ar: 'عيش بلدي', kcal: 270, p: 9, c: 55, f: 2, serving: 'per 100 g' },
+  { id: 'taameya', en: 'Taameya / falafel, fried', ar: 'طعمية مقلية', kcal: 333, p: 13, c: 32, f: 18, serving: 'per 100 g' },
+  { id: 'potato', en: 'French fries', ar: 'بطاطس محمرة', kcal: 312, p: 3.4, c: 41, f: 15, serving: 'per 100 g' },
+  { id: 'potatoboiled', en: 'Potato, boiled', ar: 'بطاطس مسلوقة', kcal: 87, p: 1.9, c: 20.1, f: 0.1, serving: 'per 100 g' },
+  { id: 'banana', en: 'Banana', ar: 'موز', kcal: 89, p: 1.1, c: 22.8, f: 0.3, serving: 'per 100 g' },
+  { id: 'apple', en: 'Apple', ar: 'تفاح', kcal: 52, p: 0.3, c: 13.8, f: 0.2, serving: 'per 100 g' },
+  { id: 'yogurt', en: 'Plain yogurt', ar: 'زبادي سادة', kcal: 61, p: 3.5, c: 4.7, f: 3.3, serving: 'per 100 g' },
+  { id: 'milk', en: 'Whole milk', ar: 'لبن كامل الدسم', kcal: 61, p: 3.2, c: 4.8, f: 3.3, serving: 'per 100 g' },
+  { id: 'oats', en: 'Oats, dry', ar: 'شوفان جاف', kcal: 389, p: 16.9, c: 66.3, f: 6.9, serving: 'per 100 g' },
+  { id: 'bread', en: 'White bread', ar: 'عيش أبيض', kcal: 265, p: 8.9, c: 49, f: 3.2, serving: 'per 100 g' },
+  { id: 'tuna', en: 'Tuna in water, drained', ar: 'تونة مصفاة', kcal: 116, p: 25.5, c: 0, f: 0.8, serving: 'per 100 g' },
+  { id: 'beef', en: 'Beef, cooked lean', ar: 'لحم بقري مطهي قليل الدهن', kcal: 217, p: 26, c: 0, f: 12, serving: 'per 100 g' },
+  { id: 'lentils', en: 'Lentils, cooked', ar: 'عدس مطهي', kcal: 116, p: 9, c: 20, f: 0.4, serving: 'per 100 g' },
+  { id: 'chickpeas', en: 'Chickpeas, cooked', ar: 'حمص مطهي', kcal: 164, p: 8.9, c: 27.4, f: 2.6, serving: 'per 100 g' },
+  { id: 'pasta', en: 'Pasta, cooked', ar: 'مكرونة مسلوقة', kcal: 158, p: 5.8, c: 30.9, f: 0.9, serving: 'per 100 g' },
+  { id: 'tomato', en: 'Tomato', ar: 'طماطم', kcal: 18, p: 0.9, c: 3.9, f: 0.2, serving: 'per 100 g' },
+  { id: 'cucumber', en: 'Cucumber', ar: 'خيار', kcal: 15, p: 0.7, c: 3.6, f: 0.1, serving: 'per 100 g' },
+  { id: 'orange', en: 'Orange', ar: 'برتقال', kcal: 47, p: 0.9, c: 11.8, f: 0.1, serving: 'per 100 g' },
+  { id: 'cheese', en: 'Feta-style white cheese', ar: 'جبنة بيضاء', kcal: 264, p: 14, c: 4, f: 21, serving: 'per 100 g' },
+  { id: 'peanutbutter', en: 'Peanut butter', ar: 'زبدة فول سوداني', kcal: 588, p: 25, c: 20, f: 50, serving: 'per 100 g' },
+  { id: 'almonds', en: 'Almonds', ar: 'لوز', kcal: 579, p: 21.2, c: 21.6, f: 49.9, serving: 'per 100 g' },
+  { id: 'oil', en: 'Olive / cooking oil', ar: 'زيت طبخ', kcal: 884, p: 0, c: 0, f: 100, serving: 'per 100 g' },
+  { id: 'molokhia', en: 'Molokhia cooked', ar: 'ملوخية مطهية', kcal: 55, p: 4, c: 7, f: 1, serving: 'per 100 g' },
+  { id: 'shawarma', en: 'Chicken shawarma, average', ar: 'شاورما فراخ متوسط', kcal: 215, p: 20, c: 8, f: 11, serving: 'per 100 g' },
+  { id: 'pizza', en: 'Cheese pizza, average', ar: 'بيتزا جبنة متوسط', kcal: 266, p: 11, c: 33, f: 10, serving: 'per 100 g' },
+  { id: 'chocolate', en: 'Milk chocolate', ar: 'شوكولاتة بالحليب', kcal: 535, p: 7.6, c: 59, f: 30, serving: 'per 100 g' }
+];
+
+const ACCOUNT_DATA_KEYS = ['fitforge-v1', 'fitforge-custom-foods', 'fitforge-custom-week', 'fitforge-body-entries'];
+let accountSyncTimer = null, accountSyncBusy = false, accountSyncAgain = false, accountSyncErrorShown = false, loadingAccountData = false;
+
+function collectAccountData() {
+  const data = {};
+  for (const key of ACCOUNT_DATA_KEYS) {
+    const value = localStorage.getItem(key);
+    if (value !== null) {
+      try { data[key] = JSON.parse(value); } catch {}
+    }
+  }
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && /^fitforge-week-plan:[^\\/]{1,254}$/.test(key)) {
+      try { data[key] = JSON.parse(localStorage.getItem(key)); } catch {}
+    }
+  }
+  return data;
+}
+
+function applyAccountData(data) {
+  loadingAccountData = true;
+  try {
+    for (const key of ACCOUNT_DATA_KEYS) localStorage.removeItem(key);
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+      const key = localStorage.key(i);
+      if (key && /^fitforge-week-plan:[^\\/]{1,254}$/.test(key)) localStorage.removeItem(key);
+    }
+    for (const [key, value] of Object.entries(data || {})) {
+      if (ACCOUNT_DATA_KEYS.includes(key) || /^fitforge-week-plan:[^\\/]{1,254}$/.test(key)) {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+    }
+    const saved = JSON.parse(localStorage.getItem('fitforge-v1') || '{}');
+    state = { ...defaultState, ...saved, profile: { ...defaultState.profile, ...(saved.profile || {}) } };
+    state.foods = Array.isArray(state.foods) ? state.foods : [];
+    state.weights = Array.isArray(state.weights) ? state.weights : [];
+    state.workouts = Array.isArray(state.workouts) ? state.workouts : [];
+    initLanguage();
+    renderAll();
+    renderFoods();
+    renderWeights();
+    renderWorkouts();
+    renderBodyEntries();
+  } finally {
+    loadingAccountData = false;
+  }
+}
+
+async function saveAccountDataNow() {
+  if (!currentUser || loadingAccountData) return;
+  const token = localStorage.getItem('fitforge-token');
+  if (!token) return;
+  if (accountSyncBusy) {
+    accountSyncAgain = true;
+    return;
+  }
+  accountSyncBusy = true;
+  try {
+    const r = await fetch('/api/account/data', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+      body: JSON.stringify({ data: collectAccountData() })
+    });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(d.error || 'Could not sync your saved data.');
+    accountSyncErrorShown = false;
+  } catch (err) {
+    console.error('FitForge account sync failed:', err);
+    if (!accountSyncErrorShown) {
+      toast('Could not sync to your account. Your changes remain on this device.');
+      accountSyncErrorShown = true;
+    }
+  } finally {
+    accountSyncBusy = false;
+    if (accountSyncAgain) {
+      accountSyncAgain = false;
+      scheduleAccountSync();
+    }
+  }
+}
+
+function scheduleAccountSync() {
+  if (!currentUser || loadingAccountData) return;
+  clearTimeout(accountSyncTimer);
+  accountSyncTimer = setTimeout(saveAccountDataNow, 600);
+}
+
+function saveAccountLocal(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+  scheduleAccountSync();
+}
+
+async function syncAccountDataOnLogin() {
+  const token = localStorage.getItem('fitforge-token');
+  if (!token || !currentUser) return;
+  try {
+    const r = await fetch('/api/account/data', { headers: { Authorization: 'Bearer ' + token } });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || 'Could not load account data.');
+    if (d.data && Object.keys(d.data).length) {
+      applyAccountData(d.data);
+      toast('Your saved FitForge data has been loaded.');
+    } else {
+      await saveAccountDataNow();
+      renderAll();
+    }
+  } catch (err) {
+    console.error('FitForge account data load failed:', err);
+    toast('Signed in, but could not sync saved data. Check the server.');
+  }
+}
+
+function clearAccountLocalData() {
+  clearTimeout(accountSyncTimer);
+  for (const key of ACCOUNT_DATA_KEYS) localStorage.removeItem(key);
+  for (let i = localStorage.length - 1; i >= 0; i--) {
+    const key = localStorage.key(i);
+    if (key && /^fitforge-week-plan:[^\\/]{1,254}$/.test(key)) localStorage.removeItem(key);
+  }
+  state = { ...defaultState, profile: { ...defaultState.profile }, foods: [], weights: [], workouts: [] };
+  renderAll();
+  renderFoods();
+  renderWeights();
+  renderWorkouts();
+  renderBodyEntries();
+}
+
+function persist() {
+  localStorage.setItem('fitforge-v1', JSON.stringify(state));
+  scheduleAccountSync();
+  renderAll();
+}
+
+function tr(en, ar) { return state.lang === 'ar' ? ar : en; }
+function fmt(n) { return Math.round(n).toLocaleString(state.lang === 'ar' ? 'ar-EG' : 'en-US'); }
+
+function toast(msg) {
+  $('toast').textContent = msg;
+  $('toast').style.display = 'block';
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(() => { $('toast').style.display = 'none'; }, 2600);
+}
+
+function go(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = $('page-' + page);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('active', b.dataset.page === page));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (page === 'nutrition') renderFoods();
+  if (page === 'progress') renderWeights();
+  if (page === 'workouts') renderWorkouts();
+  if (page === 'premiumtools') renderBodyEntries();
+}
+
+document.querySelectorAll('.nav button').forEach(b => b.addEventListener('click', () => go(b.dataset.page)));
+
+$('langBtn').addEventListener('click', () => {
+  state.lang = state.lang === 'en' ? 'ar' : 'en';
+  document.documentElement.lang = state.lang;
+  document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+  $('langBtn').innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>${state.lang === 'en' ? 'عربي' : 'English'}</span>`;
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const val = el.dataset[state.lang];
+    if (val !== undefined) {
+      if (el.tagName === 'OPTION') el.textContent = val;
+      else el.innerHTML = val;
+    }
+  });
+  $('foodSearch').placeholder = tr('Search eggs, koshari, rice…', 'ابحث عن بيض، كشري، رز…');
+  persist();
+});
+
+function daily() {
+  return state.foods.filter(f => f.date === today()).reduce((a, f) => ({
+    kcal: a.kcal + f.kcal,
+    p: a.p + f.p,
+    c: a.c + f.c,
+    f: a.f + f.f
+  }), { kcal: 0, p: 0, c: 0, f: 0 });
+}
+
+function today() { return new Date().toISOString().slice(0, 10); }
+
+function renderDashboard() {
+  let d = daily(), p = state.profile, remain = p.calories - d.kcal;
+  $('heroCalories').textContent = fmt(p.calories);
+  $('eaten').textContent = fmt(d.kcal);
+  $('remaining').textContent = remain >= 0 ? fmt(remain) + ' ' + tr('left', 'متبقية') : fmt(-remain) + ' ' + tr('over target', 'زيادة عن الهدف');
+  $('calPct').textContent = Math.round(d.kcal / Math.max(1, p.calories) * 100) + '%';
+  $('calBar').style.width = Math.min(100, d.kcal / Math.max(1, p.calories) * 100) + '%';
+  $('protein').textContent = fmt(d.p);
+  $('proteinGoal').textContent = fmt(p.protein);
+  $('proteinBar').style.width = Math.min(100, d.p / Math.max(1, p.protein) * 100) + '%';
+  $('proteinPct').textContent = Math.round(d.p / Math.max(1, p.protein) * 100) + '%';
+  $('currentWeight').textContent = (state.weights.length ? state.weights[state.weights.length - 1].weight : p.weight).toFixed(1);
+  $('weightChange').textContent = state.weights.length > 1 ? (state.weights.at(-1).weight - state.weights[0].weight > 0 ? '+' : '') + (state.weights.at(-1).weight - state.weights[0].weight).toFixed(1) + ' kg' : '—';
+  $('workoutCount').textContent = state.workouts.length;
+
+  [['mProteinBar', d.p, p.protein], ['mCarbBar', d.c, p.carbs], ['mFatBar', d.f, p.fats]].forEach(([id, v, g]) => $(id).style.width = Math.min(100, v / Math.max(1, g) * 100) + '%');
+  $('mProtein').textContent = fmt(d.p) + ' / ' + fmt(p.protein) + 'g';
+  $('mCarbs').textContent = fmt(d.c) + ' / ' + fmt(p.carbs) + 'g';
+  $('mFats').textContent = fmt(d.f) + ' / ' + fmt(p.fats) + 'g';
+}
+
+function renderFoods() {
+  const q = ($('foodSearch').value || '').trim().toLowerCase();
+  const grams = Math.max(1, Number($('foodGrams').value) || 100);
+  const custom = JSON.parse(localStorage.getItem('fitforge-custom-foods') || '[]');
+  const all = [...foods, ...custom];
+  const matches = all.filter(f => (f.en + ' ' + f.ar).toLowerCase().includes(q)).slice(0, 18);
+  
+  $('foodList').innerHTML = matches.map((f, i) => {
+    let k = Math.round(f.kcal * grams / 100), p = (f.p * grams / 100), c = (f.c * grams / 100), fat = (f.f * grams / 100);
+    return `<div class="fooditem">
+      <div style="flex:1;min-width:0">
+        <strong>${state.lang === 'ar' ? f.ar : f.en}</strong>
+        <small>${grams} g · P ${p.toFixed(1)}g · C ${c.toFixed(1)}g · F ${fat.toFixed(1)}g</small>
+      </div>
+      <div style="text-align:right">
+        <div class="kcal">${k} kcal</div>
+        <button class="btn sm" style="margin-top:4px" onclick="addFoodGrams('${f.id}',${grams})">${tr('Add +', 'إضافة +')}</button>
+      </div>
+    </div>`;
+  }).join('') || `<div class="empty">${tr('No match. Try another name or add it manually below.', 'مش لاقيها. جرّب اسم تاني أو ضيفها يدويًا.')}</div>`;
+
+  const todayFoods = state.foods.filter(f => f.date === today());
+  $('foodLog').innerHTML = todayFoods.map(f => `<div class="rowitem">
+    <div>
+      <strong>${state.lang === 'ar' ? f.ar : f.en}</strong>
+      <small>${f.grams ? f.grams + ' g · ' : ''}${f.kcal} kcal · P ${f.p}g · C ${f.c}g · F ${f.f}g · ${f.time || ''}</small>
+    </div>
+    <button onclick="removeFood('${f.uid}')">${tr('Remove', 'حذف')}</button>
+  </div>`).join('') || `<div class="empty">${tr('Your day is clear. Add your first food above.', 'لسه مفيش أكل متسجل. ضيف أول أكلة من فوق.')}</div>`;
+
+  const d = daily();
+  $('dayKcal').textContent = fmt(d.kcal) + ' kcal';
+  $('dayProtein').textContent = fmt(d.p) + ' g';
+  $('dayCarbs').textContent = fmt(d.c) + ' g';
+  $('dayFat').textContent = fmt(d.f) + ' g';
+}
+
+function addFoodGrams(id, grams) {
+  const custom = JSON.parse(localStorage.getItem('fitforge-custom-foods') || '[]');
+  const f = [...foods, ...custom].find(x => x.id === id);
+  if (!f) return;
+  const m = grams / 100;
+  state.foods.push({
+    id: f.id,
+    en: f.en,
+    ar: f.ar,
+    serving: grams + ' g',
+    grams,
+    kcal: Math.round(f.kcal * m),
+    p: Math.round(f.p * m * 10) / 10,
+    c: Math.round(f.c * m * 10) / 10,
+    f: Math.round(f.f * m * 10) / 10,
+    uid: Date.now().toString() + Math.random(),
+    date: today(),
+    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  });
+  persist();
+  toast(tr('Added to today', 'اتضافت لوجبات اليوم'));
+}
+
+function addFood(id, mult = 1) { addFoodGrams(id, Math.round(100 * mult)); }
+
+function addCustomFood() {
+  const name = $('customFoodName').value.trim(),
+    kcal = Number($('customKcal').value),
+    p = Number($('customP').value) || 0,
+    c = Number($('customC').value) || 0,
+    f = Number($('customF').value) || 0;
+  if (!name || !Number.isFinite(kcal) || kcal < 0) {
+    toast('اكتب اسم الأكلة والسعرات');
+    return;
+  }
+  const arr = JSON.parse(localStorage.getItem('fitforge-custom-foods') || '[]');
+  arr.push({ id: 'custom-' + Date.now(), en: name, ar: name, kcal, p, c, f, serving: 'per 100 g' });
+  saveAccountLocal('fitforge-custom-foods', arr);
+  $('customFoodName').value = '';
+  $('foodSearch').value = name;
+  $('foodGrams').value = 100;
+  renderFoods();
+  toast('اتضافت الأكلة لقاعدة بياناتك');
+}
+
+function removeFood(uid) {
+  state.foods = state.foods.filter(f => f.uid !== uid);
+  persist();
+}
+
+function clearFoods() {
+  state.foods = state.foods.filter(f => f.date !== today());
+  persist();
+  toast(tr('Today’s food log cleared', 'تم مسح أكل اليوم'));
+}
+
+$('foodSearch').addEventListener('input', renderFoods);
+$('foodGrams').addEventListener('input', renderFoods);
+
+// Drag & drop support for meal image
+const uploadZone = $('uploadDropzone');
+if (uploadZone) {
+  ['dragenter', 'dragover'].forEach(name => {
+    uploadZone.addEventListener(name, e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+  });
+  ['dragleave', 'drop'].forEach(name => {
+    uploadZone.addEventListener(name, e => { e.preventDefault(); uploadZone.classList.remove('dragover'); });
+  });
+  uploadZone.addEventListener('drop', e => {
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      $('mealImage').files = e.dataTransfer.files;
+      const f = e.dataTransfer.files[0];
+      $('preview').src = URL.createObjectURL(f);
+      $('preview').style.display = 'block';
+    }
+  });
+}
+
+$('mealImage').addEventListener('change', e => {
+  let f = e.target.files[0];
+  if (f) {
+    $('preview').src = URL.createObjectURL(f);
+    $('preview').style.display = 'block';
+  }
+});
+
+async function analyzeMeal() {
+  const file = $('mealImage').files[0];
+  if (!file) { toast(tr('Choose a food photo first', 'اختار صورة الأكل الأول')); return; }
+  if (!['image/jpeg', 'image/png', 'image/webp', 'image/gif'].includes(file.type)) { toast(tr('Use JPG, PNG, WEBP or GIF', 'استخدم JPG أو PNG أو WEBP أو GIF')); return; }
+  if (file.size > 8 * 1024 * 1024) { toast(tr('Image must be under 8 MB', 'حجم الصورة لازم يكون أقل من 8 ميجا')); return; }
+  
+  const btn = $('analyzeBtn'), out = $('scanResult');
+  btn.disabled = true;
+  btn.style.opacity = '.65';
+  btn.textContent = tr('Analyzing photo…', 'جاري تحليل الصورة…');
+  out.innerHTML = `<div class="result"><div class="resultnum">…</div>${tr('AI is identifying foods and estimating portions.', 'الذكاء الاصطناعي بيتعرف على الأكل وبيقدّر الكميات.')}</div>`;
+
+  try {
+    const dataUrl = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error(tr('Could not read this image. Try JPG or PNG.', 'مش قادر أقرأ الصورة. جرّب JPG أو PNG.')));
+      reader.readAsDataURL(file);
+    });
+
+    const controller = new AbortController(), requestTimer = setTimeout(() => controller.abort(), 120000);
+    let res;
+    try {
+      res = await fetch('/api/analyze-food', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: dataUrl, language: state.lang }),
+        signal: controller.signal
+      });
+    } catch (err) {
+      if (err.name === 'AbortError') throw new Error(tr('Analysis took too long. Please try again shortly.', 'التحليل أخد وقت طويل. جرّب تاني بعد شوية.'));
+      throw err;
+    } finally {
+      clearTimeout(requestTimer);
+    }
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || tr('Analysis failed. Check server setup.', 'التحليل فشل. راجع إعدادات السيرفر.'));
+    const items = Array.isArray(data.items) ? data.items : [];
+    
+    if (data.is_food === false || !items.length) {
+      out.innerHTML = `<div class="result"><strong style="color:var(--accent-amber)">${tr('No food detected', 'مش شايف أكل في الصورة')}</strong><p style="margin-top:6px">${String(data.notes || tr('I can’t see food clearly in this image. Please upload a clear photo of the food.', 'مش شايف أكل واضح في الصورة. ارفع صورة واضحة للأكل.')).replace(/[<>&]/g, '')}</p></div>`;
+      window.lastAiMeal = null;
+      return;
+    }
+
+    const sum = items.reduce((a, x) => ({
+      calories: a.calories + Number(x.calories || 0),
+      protein: a.protein + Number(x.protein_g || 0),
+      carbs: a.carbs + Number(x.carbs_g || 0),
+      fat: a.fat + Number(x.fat_g || 0)
+    }), { calories: 0, protein: 0, carbs: 0, fat: 0 });
+
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    window.lastAiMeal = { name: data.meal_name || tr('Photo meal', 'وجبة من الصورة'), items, sum };
+
+    const itemsHtml = items.map((x, i) => `<div class="rowitem" style="align-items:center;gap:12px">
+      <div style="flex:1;min-width:0">
+        <strong>${esc(x.name)}</strong>
+        <small>${tr('Nutrition per 100 g', 'القيم لكل 100 جرام')}: ${Math.round(Number(x.calories_per_100g) || 0)} kcal · P ${Math.round(Number(x.protein_per_100g) || 0)}g · C ${Math.round(Number(x.carbs_per_100g) || 0)}g · F ${Math.round(Number(x.fat_per_100g) || 0)}g</small>
+        <label style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12px">
+          ${tr('Weight (g)', 'الوزن (جرام)')}
+          <input type="number" min="1" max="5000" step="1" value="${Math.max(1, Math.round(Number(x.portion_g) || 100))}" style="width:92px;padding:6px;border-radius:8px;background:var(--bg-input);color:var(--text-main);border:1px solid var(--border-card)" oninput="updateAiPortion(${i},this.value)">
+        </label>
+      </div>
+      <strong style="color:var(--accent-lime);white-space:nowrap" id="aiItemCalories${i}">${Math.round(Number(x.calories) || 0)} kcal</strong>
+    </div>`).join('');
+
+    out.innerHTML = `<div class="result">
+      <div class="eyebrow">${tr('AI ESTIMATE', 'تقدير الذكاء الاصطناعي')}</div>
+      <div class="resultnum" id="aiTotalCalories">${Math.round(sum.calories)} kcal</div>
+      <div id="aiTotalMacros" style="color:var(--text-muted);font-size:13px;margin-bottom:12px">${tr('Protein', 'بروتين')}: ${Math.round(sum.protein)}g · ${tr('Carbs', 'كارب')}: ${Math.round(sum.carbs)}g · ${tr('Fat', 'دهون')}: ${Math.round(sum.fat)}g</div>
+      <div class="listrows">${itemsHtml}</div>
+      <p class="note">${esc(data.notes || tr('Visual estimate only; verify ingredients and portions.', 'تقدير بصري فقط؛ راجع المكونات والكميات.'))}</p>
+      <div class="form-actions">
+        <button class="btn" onclick="addAiMealToLog()">${tr('Add estimate to food log', 'أضف التقدير لسجل الأكل')}</button>
+      </div>
+    </div>`;
+  } catch (e) {
+    out.innerHTML = `<div class="result"><strong style="color:var(--accent-rose)">${tr('Could not analyze photo', 'تعذّر تحليل الصورة')}</strong><p style="margin-top:6px">${String(e.message || 'Unknown error').replace(/[<>&]/g, '')}</p><p class="note">${tr('Make sure the server is running and GEMINI_API_KEY is set in .env.', 'تأكد إن السيرفر شغال وإن GEMINI_API_KEY موجود في ملف .env.')}</p></div>`;
+  } finally {
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.textContent = tr('Analyze with AI ↗', 'حلّل بالذكاء الاصطناعي ↗');
+  }
+}
+
+function updateAiPortion(index, value) {
+  const meal = window.lastAiMeal;
+  if (!meal || !meal.items[index]) return;
+  const grams = Math.max(1, Math.min(5000, Number(value) || 1)), x = meal.items[index], scale = grams / 100;
+  x.portion_g = grams;
+  x.calories = Math.round((Number(x.calories_per_100g) || 0) * scale);
+  x.protein_g = Math.round((Number(x.protein_per_100g) || 0) * scale * 10) / 10;
+  x.carbs_g = Math.round((Number(x.carbs_per_100g) || 0) * scale * 10) / 10;
+  x.fat_g = Math.round((Number(x.fat_per_100g) || 0) * scale * 10) / 10;
+  meal.sum = meal.items.reduce((a, y) => ({
+    calories: a.calories + y.calories,
+    protein: a.protein + y.protein_g,
+    carbs: a.carbs + y.carbs_g,
+    fat: a.fat + y.fat_g
+  }), { calories: 0, protein: 0, carbs: 0, fat: 0 });
+  
+  const cal = document.getElementById('aiItemCalories' + index);
+  if (cal) cal.textContent = x.calories + ' kcal';
+  const total = document.getElementById('aiTotalCalories');
+  if (total) total.textContent = Math.round(meal.sum.calories) + ' kcal';
+  const macros = document.getElementById('aiTotalMacros');
+  if (macros) macros.textContent = tr('Protein', 'بروتين') + ': ' + Math.round(meal.sum.protein) + 'g · ' + tr('Carbs', 'كارب') + ': ' + Math.round(meal.sum.carbs) + 'g · ' + tr('Fat', 'دهون') + ': ' + Math.round(meal.sum.fat) + 'g';
+}
+
+function addAiMealToLog() {
+  const meal = window.lastAiMeal;
+  if (!meal) return;
+  const uid = Date.now().toString(), t = meal.sum;
+  state.foods.push({
+    id: 'ai-' + uid,
+    uid,
+    date: today(),
+    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    en: meal.name,
+    ar: meal.name,
+    kcal: Math.round(t.calories),
+    p: Math.round(t.protein),
+    c: Math.round(t.carbs),
+    f: Math.round(t.fat),
+    serving: 'AI visual estimate'
+  });
+  persist();
+  toast(tr('AI estimate added to food log', 'اتضاف تقدير الـ AI لسجل الأكل'));
+}
+
+function addWeight() {
+  let w = Number($('weightInput').value), date = $('weightDate').value || today();
+  if (!(w > 0 && w < 500)) { toast(tr('Enter a valid weight', 'اكتب وزن صحيح')); return; }
+  state.weights.push({ weight: w, date, uid: Date.now() });
+  state.weights.sort((a, b) => a.date.localeCompare(b.date));
+  persist();
+  toast(tr('Weight saved', 'تم حفظ الوزن'));
+}
+
+function renderWeights() {
+  let arr = state.weights;
+  $('weightChart').innerHTML = arr.length ? arr.slice(-8).map(w => {
+    let min = Math.min(...arr.map(x => x.weight)), max = Math.max(...arr.map(x => x.weight)),
+      height = max === min ? 65 : 20 + (w.weight - min) / (max - min) * 70;
+    return `<div class="barwrap"><strong style="font-size:11px">${w.weight}</strong><div class="bar" style="height:${height}%"></div><small>${w.date.slice(5)}</small></div>`;
+  }).join('') : `<div class="empty" style="width:100%">${tr('Add your first weight to see your chart.', 'سجّل أول وزن عشان يظهر الرسم البياني.')}</div>`;
+
+  $('weightLog').innerHTML = arr.slice().reverse().slice(0, 8).map(w => `<div class="rowitem">
+    <div><strong>${w.weight.toFixed(1)} kg</strong><small>${w.date}</small></div>
+    <button onclick="deleteWeight(${w.uid})">${tr('Remove', 'حذف')}</button>
+  </div>`).join('') || '';
+
+  $('weightRecent').innerHTML = arr.slice().reverse().slice(0, 3).map(w => `<div class="rowitem">
+    <div><strong>${w.weight.toFixed(1)} kg</strong><small>${w.date}</small></div>
+    <span style="color:var(--accent-lime);font-weight:800">✓</span>
+  </div>`).join('') || `<div class="empty">${tr('No check-ins yet', 'لا توجد تسجيلات حتى الآن')}</div>`;
+
+  $('currentWeight').textContent = (arr.length ? arr.at(-1).weight : state.profile.weight).toFixed(1);
+  $('goalSummary').textContent = tr(({ bulk: 'Bulking', loss: 'Weight loss', cut: 'Cutting', maintain: 'Maintain weight' })[state.profile.goal], ({ bulk: 'تضخيم', loss: 'تخسيس', cut: 'تنشيف', maintain: 'تثبيت الوزن' })[state.profile.goal]);
+  $('goalSub').textContent = tr('Target ', 'الهدف ') + state.profile.target + ' kg';
+}
+
+function deleteWeight(uid) {
+  state.weights = state.weights.filter(w => w.uid !== uid);
+  persist();
+}
+
+const exerciseData = [
+  { en: 'Push-up', ar: 'ضغط صدر', muscle: 'Chest · Triceps', home: true, equip: ['bodyweight', 'bands', 'dumbbells'], sets: '3 × 8–15', query: 'proper push up form tutorial' },
+  { en: 'Dumbbell bench press', ar: 'بنش دمبل', muscle: 'Chest · Triceps', home: true, equip: ['dumbbells', 'all'], sets: '3 × 8–12', query: 'dumbbell bench press tutorial' },
+  { en: 'Machine chest press', ar: 'ضغط صدر ماكينة', muscle: 'Chest · Triceps', home: false, equip: ['machines', 'all'], sets: '3 × 8–12', query: 'machine chest press tutorial' },
+  { en: 'Lat pulldown', ar: 'سحب عالي', muscle: 'Back · Biceps', home: false, equip: ['machines', 'all'], sets: '3 × 8–12', query: 'lat pulldown proper form' },
+  { en: 'One-arm dumbbell row', ar: 'تجديف دمبل', muscle: 'Back · Biceps', home: true, equip: ['dumbbells', 'all'], sets: '3 × 8–12 / side', query: 'one arm dumbbell row tutorial' },
+  { en: 'Resistance-band row', ar: 'تجديف باستيك', muscle: 'Back', home: true, equip: ['bands'], sets: '3 × 12–15', query: 'resistance band row exercise' },
+  { en: 'Bodyweight squat', ar: 'سكوات وزن الجسم', muscle: 'Legs · Glutes', home: true, equip: ['bodyweight', 'bands', 'dumbbells', 'all'], sets: '3 × 10–15', query: 'bodyweight squat proper form' },
+  { en: 'Goblet squat', ar: 'سكوات دمبل', muscle: 'Quads · Glutes', home: true, equip: ['dumbbells', 'all'], sets: '3 × 8–12', query: 'goblet squat tutorial' },
+  { en: 'Leg press', ar: 'ليج برس', muscle: 'Quads · Glutes', home: false, equip: ['machines', 'all'], sets: '3 × 10–12', query: 'leg press machine proper form' },
+  { en: 'Romanian deadlift', ar: 'رفعة رومانية', muscle: 'Hamstrings · Glutes', home: true, equip: ['dumbbells', 'all'], sets: '3 × 8–12', query: 'dumbbell romanian deadlift tutorial' },
+  { en: 'Glute bridge', ar: 'رفع الحوض', muscle: 'Glutes · Hamstrings', home: true, equip: ['bodyweight', 'bands', 'dumbbells', 'all'], sets: '3 × 12–15', query: 'glute bridge exercise tutorial' },
+  { en: 'Dumbbell shoulder press', ar: 'ضغط كتف دمبل', muscle: 'Shoulders · Triceps', home: true, equip: ['dumbbells', 'all'], sets: '3 × 8–12', query: 'dumbbell shoulder press proper form' },
+  { en: 'Lateral raise', ar: 'رفرفة جانبي', muscle: 'Shoulders', home: true, equip: ['dumbbells', 'all'], sets: '3 × 12–15', query: 'dumbbell lateral raise tutorial' },
+  { en: 'Biceps curl', ar: 'بايسبس كيرل', muscle: 'Biceps', home: true, equip: ['dumbbells', 'bands', 'all'], sets: '3 × 10–15', query: 'dumbbell biceps curl tutorial' },
+  { en: 'Triceps extension', ar: 'تمديد ترايسبس', muscle: 'Triceps', home: true, equip: ['dumbbells', 'bands', 'all'], sets: '3 × 10–15', query: 'dumbbell triceps extension tutorial' },
+  { en: 'Plank', ar: 'بلانك', muscle: 'Core', home: true, equip: ['bodyweight', 'bands', 'dumbbells', 'machines', 'all'], sets: '3 × 20–45 sec', query: 'plank proper form tutorial' },
+  { en: 'Dead bug', ar: 'ديد باج للبطن', muscle: 'Core', home: true, equip: ['bodyweight', 'bands', 'dumbbells', 'machines', 'all'], sets: '3 × 8–12 / side', query: 'dead bug core exercise tutorial' },
+  { en: 'Calf raise', ar: 'رفع السمانة', muscle: 'Calves', home: true, equip: ['bodyweight', 'dumbbells', 'all'], sets: '3 × 12–20', query: 'standing calf raise tutorial' },
+  { en: 'Seated cable row', ar: 'تجديف كيبل', muscle: 'Back', home: false, equip: ['machines', 'all'], sets: '3 × 8–12', query: 'seated cable row tutorial' },
+  { en: 'Leg curl machine', ar: 'ثني الرجل ماكينة', muscle: 'Hamstrings', home: false, equip: ['machines', 'all'], sets: '3 × 10–15', query: 'seated leg curl machine tutorial' },
+  { en: 'Band pull-apart', ar: 'فتح باستيك للكتف', muscle: 'Rear delts · Upper back', home: true, equip: ['bands'], sets: '3 × 12–20', query: 'resistance band pull apart exercise' },
+  { en: 'Walking lunge', ar: 'لونجز مشي', muscle: 'Legs · Glutes', home: true, equip: ['bodyweight', 'dumbbells', 'all'], sets: '3 × 8–12 / leg', query: 'walking lunge proper form' }
+];
+
+function renderExerciseLibrary() {
+  const q = ($('exerciseSearch')?.value || '').toLowerCase();
+  const place = $('planPlace')?.value || 'gym', equip = $('planEquipment')?.value || 'all';
+  const list = exerciseData.filter(e => ((e.en + ' ' + e.ar + ' ' + e.muscle).toLowerCase().includes(q)) && (place !== 'home' || e.home) && (equip === 'all' || e.equip.includes(equip) || e.equip.includes('all')));
+  
+  $('exerciseLibrary').innerHTML = list.map(e => `<article class="exercise-card">
+    <span class="pill">${e.muscle}</span>
+    <h3>${state.lang === 'ar' ? e.ar : e.en}</h3>
+    <p>${e.sets} · ${tr('controlled reps, good form', 'تكرارات متحكم فيها وأداء سليم')}</p>
+    <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(e.query)}" target="_blank" rel="noopener">
+      ▶ ${tr('Watch form on YouTube', 'شوف طريقة الأداء على يوتيوب')} ↗
+    </a>
+  </article>`).join('') || `<div class="empty">${tr('No exercises match those filters.', 'مفيش تمارين مطابقة للاختيارات.')}</div>`;
+}
+
+function generateWorkoutPlan() {
+  const days = Number($('planDays').value), place = $('planPlace').value, equip = $('planEquipment').value, level = $('planLevel').value;
+  let split = $('planSplit').value;
+  if (split === 'auto') split = days <= 3 ? 'fullbody' : days === 4 ? 'upperlower' : 'ppl';
+  if (days < 3 && split === 'ppl') split = 'fullbody';
+  
+  const templates = {
+    ppl: ['Push', 'Pull', 'Legs'],
+    upperlower: ['Upper body', 'Lower body'],
+    bro: ['Chest', 'Back', 'Legs', 'Shoulders', 'Arms'],
+    arnold: ['Chest + Back', 'Shoulders + Arms', 'Legs'],
+    phul: ['Upper body', 'Lower body', 'Upper body', 'Lower body'],
+    pplul: ['Push', 'Pull', 'Legs', 'Upper body', 'Lower body'],
+    torso: ['Upper body', 'Lower body'],
+    strengthsplit: ['Strength Upper', 'Strength Lower'],
+    home: ['Full body', 'Core + Abs'],
+    fullbody: ['Full body A', 'Full body B', 'Full body C']
+  };
+  
+  const names = templates[split] || templates.fullbody;
+  const pool = exerciseData.filter(e => (place !== 'home' || e.home) && (equip === 'all' || e.equip.includes(equip) || e.equip.includes('all')));
+  const muscleSets = {
+    'Push': /Chest|Shoulders|Triceps/i,
+    'Pull': /Back|Biceps/i,
+    'Legs': /Legs|Quads|Hamstrings|Glutes|Calves/i,
+    'Upper body': /Chest|Back|Shoulders|Biceps|Triceps/i,
+    'Lower body': /Legs|Quads|Hamstrings|Glutes|Calves|Core/i,
+    'Chest': /Chest|Triceps/i,
+    'Back': /Back|Biceps/i,
+    'Shoulders': /Shoulders|Core/i,
+    'Arms': /Biceps|Triceps/i,
+    'Chest + Back': /Chest|Back/i,
+    'Shoulders + Arms': /Shoulders|Biceps|Triceps/i,
+    'Full body': /Chest|Back|Legs|Glutes|Shoulders|Core/i,
+    'Full body A': /Chest|Back|Legs|Glutes|Shoulders|Core/i,
+    'Full body B': /Chest|Back|Legs|Glutes|Shoulders|Core/i,
+    'Full body C': /Chest|Back|Legs|Glutes|Shoulders|Core/i,
+    'Strength Upper': /Chest|Back|Shoulders|Biceps|Triceps/i,
+    'Strength Lower': /Legs|Quads|Hamstrings|Glutes|Calves|Core/i,
+    'Core + Abs': /Core|Abs/i
+  };
+
+  let html = `<div class="card">
+    <div class="eyebrow">YOUR GENERATED ROUTINE</div>
+    <h2>${days} ${tr('training days per week', 'أيام تمرين في الأسبوع')}</h2>
+    <p class="muted">${place === 'home' ? tr('Home plan', 'نظام البيت') : tr('Gym plan', 'نظام الجيم')} · ${tr(level, level === 'beginner' ? 'مبتدئ' : level === 'intermediate' ? 'متوسط' : 'متقدم')} · ${tr('Choose a goal and adjust your schedule any time.', 'اختار هدفك وعدّل جدولك في أي وقت.')}</p>`;
+
+  for (let d = 0; d < days; d++) {
+    let nm = names[d % names.length];
+    let pattern = muscleSets[nm] || /Chest|Back|Legs|Glutes|Shoulders|Core/i;
+    let arr = pool.filter(e => pattern.test(e.muscle));
+    if (split === 'phul' && d % 2 === 0) arr = arr.filter(e => /Chest|Back|Legs|Quads|Hamstrings/i.test(e.muscle));
+    arr = arr.slice(0, level === 'beginner' ? 4 : 6);
+    if (!arr.length) arr = pool.slice(0, 4);
+
+    html += `<div class="plan-day">
+      <h3>Day ${d + 1} · ${nm}</h3>
+      <ul>${arr.map(e => `<li><strong>${state.lang === 'ar' ? e.ar : e.en}</strong> — ${e.sets} · <a style="color:var(--accent-lime)" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(e.query)}">▶ YouTube</a></li>`).join('')}</ul>
+    </div>`;
+  }
+
+  html += `<p class="note">${tr('Rest at least one day between hard sessions for the same muscles. Warm up for 5–10 minutes. This is a starter template; exercise technique and recovery matter more than lifting heavy.', 'سيب يوم راحة على الأقل بين التمارين الشديدة لنفس العضلات، وسخّن 5–10 دقايق. ده جدول مبدئي؛ الأداء السليم والاستشفاء أهم من الوزن التقيل.')}</p></div>`;
+
+  $('generatedPlan').innerHTML = html;
+  renderExerciseLibrary();
+}
+
+$('exerciseSearch')?.addEventListener('input', renderExerciseLibrary);
+$('planPlace')?.addEventListener('change', renderExerciseLibrary);
+$('planEquipment')?.addEventListener('change', renderExerciseLibrary);
+
+function addWorkout() {
+  let name = $('workoutName')?.value.trim() || 'Workout', duration = Number($('workoutDuration')?.value) || 45;
+  let date = $('workoutDate')?.value || today();
+  state.workouts.push({ name, type: 'Strength', duration, date, uid: Date.now() });
+  persist();
+  renderWorkouts();
+  renderDashboard();
+  toast(tr('Workout saved. Nice work!', 'اتسجل التمرين، عاش!'));
+}
+
+const WEEK_DAYS = [['Sunday', 'الأحد'], ['Monday', 'الاثنين'], ['Tuesday', 'الثلاثاء'], ['Wednesday', 'الأربعاء'], ['Thursday', 'الخميس'], ['Friday', 'الجمعة'], ['Saturday', 'السبت']];
+const SPLIT_OPTIONS = [
+  ['Rest', 'راحة'], ['Chest + Shoulders', 'صدر + كتف'], ['Chest + Triceps', 'صدر + ترايسبس'],
+  ['Back + Biceps', 'ظهر + بايسبس'], ['Shoulders + Arms', 'كتف + ذراع'], ['Legs', 'رجل'],
+  ['Push', 'Push — صدر وكتف وترايسبس'], ['Pull', 'Pull — ظهر وبايسبس'],
+  ['Upper body', 'جزء علوي'], ['Lower body', 'جزء سفلي'], ['Full body', 'جسم كامل'],
+  ['Arms', 'ذراع'], ['Chest', 'صدر'], ['Back', 'ظهر'], ['Shoulders', 'كتف'],
+  ['Core + Abs', 'بطن وكور'], ['Glutes + Hamstrings', 'مؤخرة وخلفية رجل'],
+  ['Cardio + Core', 'كارديو وبطن'], ['Custom', 'اختار عضلاتك يدويًا']
+];
+
+function defaultCustomWeek() {
+  return WEEK_DAYS.map(([en, ar], i) => ({ day: en, group: ['Chest + Shoulders', 'Rest', 'Back + Biceps', 'Rest', 'Legs', 'Shoulders + Arms', 'Rest'][i] }));
+}
+
+function customWeek() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('fitforge-custom-week') || 'null');
+    return Array.isArray(saved) && saved.length === 7 ? saved : defaultCustomWeek();
+  } catch (e) {
+    return defaultCustomWeek();
+  }
+}
+
+function renderCustomWeek() {
+  const week = customWeek();
+  $('customWeekRows').innerHTML = week.map((d, i) => `<div class="rowitem" style="align-items:center;gap:14px;flex-wrap:wrap">
+    <div style="min-width:110px;flex:1">
+      <strong>${state.lang === 'ar' ? WEEK_DAYS[i][1] : WEEK_DAYS[i][0]}</strong>
+      <small>${state.lang === 'ar' ? 'خطة اليوم' : 'Day plan'}</small>
+    </div>
+    <div class="field" style="min-width:210px;flex:2;margin-bottom:0">
+      <select aria-label="Workout for ${d.day}" onchange="updateCustomDay(${i},this.value)">
+        ${SPLIT_OPTIONS.map(([en, ar]) => `<option value="${en}" ${d.group === en ? 'selected' : ''}>${state.lang === 'ar' ? ar : en}</option>`).join('')}
+      </select>
+    </div>
+    <button class="btn secondary sm" onclick="cycleCustomDay(${i})">${state.lang === 'ar' ? 'تغيير سريع' : 'Quick change'} ↻</button>
+  </div>`).join('');
+}
+
+function updateCustomDay(i, group) {
+  const w = customWeek();
+  w[i].group = group;
+  saveAccountLocal('fitforge-custom-week', w);
+  renderCustomWeek();
+}
+
+function cycleCustomDay(i) {
+  const w = customWeek(), idx = SPLIT_OPTIONS.findIndex(x => x[0] === w[i].group);
+  w[i].group = SPLIT_OPTIONS[(idx + 1) % SPLIT_OPTIONS.length][0];
+  saveAccountLocal('fitforge-custom-week', w);
+  renderCustomWeek();
+}
+
+function loadCustomTemplate() {
+  const t = $('customTemplate').value;
+  let groups;
+  if (t === 'ppl') groups = ['Push', 'Pull', 'Legs', 'Rest', 'Push', 'Pull', 'Rest'];
+  else if (t === 'upperlower') groups = ['Upper body', 'Lower body', 'Rest', 'Upper body', 'Lower body', 'Rest', 'Rest'];
+  else if (t === 'fullbody') groups = ['Full body', 'Rest', 'Full body', 'Rest', 'Full body', 'Rest', 'Rest'];
+  else if (t === 'bro') groups = ['Chest', 'Back', 'Legs', 'Shoulders', 'Arms', 'Rest', 'Rest'];
+  else if (t === 'arnold') groups = ['Chest + Back', 'Shoulders + Arms', 'Legs', 'Chest + Back', 'Shoulders + Arms', 'Legs', 'Rest'];
+  else if (t === 'phul') groups = ['Upper body', 'Lower body', 'Rest', 'Upper body', 'Lower body', 'Rest', 'Rest'];
+  else if (t === 'pplul') groups = ['Push', 'Pull', 'Legs', 'Upper body', 'Lower body', 'Rest', 'Rest'];
+  else if (t === 'torso') groups = ['Upper body', 'Lower body', 'Rest', 'Upper body', 'Lower body', 'Rest', 'Rest'];
+  else if (t === 'strength') groups = ['Full body', 'Rest', 'Full body', 'Rest', 'Full body', 'Rest', 'Rest'];
+  else if (t === 'home') groups = ['Full body', 'Rest', 'Full body', 'Core + Abs', 'Rest', 'Full body', 'Rest'];
+  else groups = ['Chest + Shoulders', 'Rest', 'Back + Biceps', 'Rest', 'Legs', 'Shoulders + Arms', 'Rest'];
+  
+  const w = WEEK_DAYS.map(([day], i) => ({ day, group: groups[i] }));
+  saveAccountLocal('fitforge-custom-week', w);
+  renderCustomWeek();
+}
+
+function resetCustomPlan() {
+  saveAccountLocal('fitforge-custom-week', defaultCustomWeek());
+  $('customTemplate').value = 'manual';
+  renderCustomWeek();
+  $('customPlanOutput').innerHTML = '';
+}
+
+function saveCustomPlan() {
+  const week = customWeek(), place = $('planPlace').value, equip = $('planEquipment').value;
+  const pool = exerciseData.filter(e => (place !== 'home' || e.home) && (equip === 'all' || e.equip.includes(equip) || e.equip.includes('all')));
+  const matches = (group) => {
+    if (group === 'Rest') return [];
+    if (group === 'Push') return pool.filter(e => /Chest|Shoulders|Triceps/i.test(e.muscle));
+    if (group === 'Pull') return pool.filter(e => /Back|Biceps/i.test(e.muscle));
+    if (group === 'Legs' || group === 'Lower body') return pool.filter(e => /Legs|Quads|Hamstrings|Glutes|Calves/i.test(e.muscle));
+    if (group === 'Upper body') return pool.filter(e => /Chest|Back|Shoulders|Biceps|Triceps/i.test(e.muscle));
+    if (group === 'Full body') return pool.filter(e => /Chest|Back|Legs|Glutes|Shoulders|Core/i.test(e.muscle));
+    if (group === 'Arms' || group === 'Shoulders + Arms') return pool.filter(e => /Biceps|Triceps|Shoulders/i.test(e.muscle));
+    if (group === 'Chest + Back') return pool.filter(e => /Chest|Back/i.test(e.muscle));
+    if (group === 'Chest + Shoulders') return pool.filter(e => /Chest|Shoulders/i.test(e.muscle));
+    if (group === 'Chest + Triceps') return pool.filter(e => /Chest|Triceps/i.test(e.muscle));
+    if (group === 'Back + Biceps') return pool.filter(e => /Back|Biceps/i.test(e.muscle));
+    if (group === 'Shoulders') return pool.filter(e => /Shoulders/i.test(e.muscle));
+    if (group === 'Chest') return pool.filter(e => /Chest/i.test(e.muscle));
+    if (group === 'Back') return pool.filter(e => /Back/i.test(e.muscle));
+    if (group === 'Core + Abs') return pool.filter(e => /Core|Abs/i.test(e.muscle));
+    if (group === 'Glutes + Hamstrings') return pool.filter(e => /Glutes|Hamstrings/i.test(e.muscle));
+    if (group === 'Cardio + Core') return pool.filter(e => /Core|Abs/i.test(e.muscle));
+    return pool.slice(0, 5);
+  };
+
+  const output = week.map((d, i) => {
+    const arr = matches(d.group).slice(0, 5);
+    return `<div class="plan-day">
+      <h3>${state.lang === 'ar' ? WEEK_DAYS[i][1] : d.day} · ${state.lang === 'ar' ? (SPLIT_OPTIONS.find(x => x[0] === d.group)?.[1] || d.group) : d.group}</h3>
+      ${d.group === 'Rest' ? `<p class="muted">${state.lang === 'ar' ? 'استشفاء وراحة' : 'Recovery day'}</p>` : arr.length ? `<ul>${arr.map(e => `<li><strong>${state.lang === 'ar' ? e.ar : e.en}</strong> — ${e.sets} · <a style="color:var(--accent-lime)" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(e.query)}">▶ YouTube</a></li>`).join('')}</ul>` : `<p class="muted">${state.lang === 'ar' ? 'مش لاقي تمارين مطابقة للمعدات المختارة.' : 'No matching exercises for selected equipment.'}</p>`}
+    </div>`;
+  }).join('');
+
+  $('customPlanOutput').innerHTML = `<div class="card" style="margin-top:16px">
+    <div class="eyebrow">SAVED CUSTOM WEEK</div>
+    <h2>${state.lang === 'ar' ? 'جدولك الأسبوعي' : 'Your weekly schedule'}</h2>
+    ${output}
+    <p class="note">${state.lang === 'ar' ? 'تقدر تغيّر أي يوم في أي وقت. تكرار العضلات متاح، لكن خُد بالك من الراحة والاستشفاء وتجنب تدريب نفس العضلة بشدة كل يوم.' : 'Edit any day anytime. Muscle groups can repeat, but allow enough recovery and avoid training the same muscle hard every day.'}</p>
+  </div>`;
+
+  saveAccountLocal('fitforge-custom-week', week);
+  toast(state.lang === 'ar' ? 'تم حفظ جدولك المخصص' : 'Custom week saved');
+}
+
+function renderWorkouts() {
+  let arr = state.workouts.slice().reverse();
+  $('totalWorkouts').textContent = state.workouts.length;
+  $('totalMinutes').textContent = state.workouts.reduce((a, w) => a + w.duration, 0);
+  $('workoutLog').innerHTML = arr.map(w => `<div class="rowitem">
+    <div>
+      <strong>${w.name}</strong>
+      <small>${w.type || 'Strength'} · ${w.duration} min · ${w.date}</small>
+    </div>
+    <button onclick="deleteWorkout(${w.uid})">${tr('Remove', 'حذف')}</button>
+  </div>`).join('') || `<div class="empty">${tr('No workouts logged yet. Generate a plan and log your sessions.', 'لسه مفيش تمارين مسجلة. اعمل جدول وسجّل تمرينك.')}</div>`;
+
+  if ($('exerciseLibrary')) renderExerciseLibrary();
+  if ($('customWeekRows')) renderCustomWeek();
+}
+
+function deleteWorkout(uid) {
+  state.workouts = state.workouts.filter(w => w.uid !== uid);
+  persist();
+}
+
+function clearWorkouts() {
+  state.workouts = [];
+  persist();
+  toast(tr('Workout history cleared', 'تم مسح سجل التمارين'));
+}
+
+function saveProfile() {
+  let age = Number($('age').value),
+    height = Number($('height').value),
+    weight = Number($('startWeight').value),
+    activity = Number($('activity').value),
+    goal = $('goal').value,
+    target = Number($('targetWeight').value),
+    sex = $('sex').value;
+  if (!(age >= 13 && height >= 100 && height <= 250 && weight >= 25 && weight <= 350 && target >= 25)) {
+    toast(tr('Check your profile values', 'راجع البيانات المدخلة'));
+    return;
+  }
+  let bmr = 10 * weight + 6.25 * height - 5 * age + (sex === 'male' ? 5 : sex === 'female' ? -161 : -78),
+    maintenance = bmr * activity,
+    calories = Math.round(maintenance + (goal === 'bulk' ? 200 : (goal === 'loss' || goal === 'cut') ? -300 : 0));
+  let protein = Math.round(weight * 1.8), fats = Math.round(weight * .9), carbs = Math.max(0, Math.round((calories - protein * 4 - fats * 9) / 4));
+  state.profile = { age, sex, height, weight, activity, goal, target, calories, protein, carbs, fats };
+  $('profileResult').innerHTML = `<div class="result" style="margin-top:14px">
+    <div class="muted">${tr('Estimated maintenance', 'سعرات الحفاظ التقديرية')}: ${fmt(maintenance)} kcal</div>
+    <div class="resultnum">${fmt(calories)} kcal/day</div>
+    <div class="muted">${tr('Suggested starting target', 'الهدف المقترح كبداية')}</div>
+  </div>`;
+  persist();
+  toast(tr('Your plan has been updated', 'تم تحديث خطتك'));
+}
+
+function renderProfile() {
+  let p = state.profile;
+  $('age').value = p.age;
+  $('sex').value = p.sex;
+  $('height').value = p.height;
+  $('startWeight').value = p.weight;
+  $('activity').value = p.activity;
+  $('goal').value = p.goal;
+  $('targetWeight').value = p.target;
+  $('planCalories').textContent = fmt(p.calories) + ' kcal';
+  $('planLabel').textContent = tr(({ bulk: 'Bulking', loss: 'Weight loss', cut: 'Cutting', maintain: 'Maintain weight' })[p.goal], ({ bulk: 'تضخيم', loss: 'تخسيس', cut: 'تنشيف', maintain: 'تثبيت الوزن' })[p.goal]);
+  $('planProtein').textContent = p.protein + ' g';
+  $('planCarbs').textContent = p.carbs + ' g';
+  $('planFats').textContent = p.fats + ' g';
+}
+
+function renderAll() {
+  renderDashboard();
+  renderFoods();
+  renderWeights();
+  renderWorkouts();
+  renderProfile();
+}
+
+$('weightDate').value = today();
+if ($('workoutDate')) $('workoutDate').value = today();
+if ($('bodyDate')) $('bodyDate').value = today();
+
+const swapFoods = {
+  chicken: { en: 'Chicken breast', ar: 'صدور فراخ', kcal: 165, p: 31, c: 0, f: 3.6 },
+  egg: { en: 'Egg', ar: 'بيض', kcal: 155, p: 13, c: 1.1, f: 11 },
+  rice: { en: 'Cooked rice', ar: 'رز مطبوخ', kcal: 130, p: 2.7, c: 28.2, f: 0.3 },
+  ful: { en: 'Fava beans', ar: 'فول', kcal: 110, p: 7.6, c: 19.7, f: 0.4 },
+  koshari: { en: 'Koshari', ar: 'كشري', kcal: 160, p: 5, c: 27, f: 3.2 },
+  lentils: { en: 'Cooked lentils', ar: 'عدس مطبوخ', kcal: 116, p: 9, c: 20, f: 0.4 },
+  potato: { en: 'Boiled potato', ar: 'بطاطس مسلوقة', kcal: 87, p: 1.9, c: 20.1, f: 0.1 }
+};
+
+function bodyEntries() {
+  try { return JSON.parse(localStorage.getItem('fitforge-body-entries') || '[]'); } catch { return []; }
+}
+
+function previewBodyPhoto(e) {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  if (f.size > 5 * 1024 * 1024) {
+    toast(state.lang === 'ar' ? 'الصورة أكبر من 5 ميجابايت' : 'Image must be under 5 MB');
+    e.target.value = '';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = () => {
+    const im = $('bodyPhotoPreview');
+    im.src = reader.result;
+    im.style.display = 'block';
+    window.bodyPhotoData = reader.result;
+  };
+  reader.readAsDataURL(f);
+}
+
+function saveBodyEntry() {
+  const entry = {
+    date: $('bodyDate').value || today(),
+    weight: Number($('bodyWeight').value) || null,
+    waist: Number($('bodyWaist').value) || null,
+    chest: Number($('bodyChest').value) || null,
+    arm: Number($('bodyArm').value) || null,
+    thigh: Number($('bodyThigh').value) || null,
+    photo: window.bodyPhotoData || null
+  };
+  if (!entry.weight && !entry.waist && !entry.chest && !entry.arm && !entry.thigh && !entry.photo) {
+    toast(state.lang === 'ar' ? 'أدخل قياسًا واحدًا على الأقل' : 'Enter at least one measurement');
+    return;
+  }
+  const list = bodyEntries();
+  list.push(entry);
+  try {
+    saveAccountLocal('fitforge-body-entries', list);
+    window.bodyPhotoData = null;
+    $('bodyPhoto').value = '';
+    $('bodyPhotoPreview').style.display = 'none';
+    renderBodyEntries();
+    toast(state.lang === 'ar' ? 'تم حفظ التقدم' : 'Progress saved');
+  } catch (err) {
+    toast(state.lang === 'ar' ? 'المساحة غير كافية لحفظ الصورة؛ جرّب صورة أصغر' : 'Not enough browser storage; try a smaller photo');
+  }
+}
+
+function renderBodyEntries() {
+  const el = $('bodyHistory');
+  if (!el) return;
+  const list = bodyEntries().slice().reverse();
+  el.innerHTML = list.map((x, i) => `<div class="rowitem">
+    <div>
+      <strong>${x.date} · ${x.weight ? x.weight + ' kg' : 'Measurements'}</strong>
+      <small>${[['Waist', x.waist], ['Chest', x.chest], ['Arm', x.arm], ['Thigh', x.thigh]].filter(a => a[1]).map(a => a[0] + ': ' + a[1] + ' cm').join(' · ') || 'No measurements'} ${x.photo ? ' · Photo saved' : ''}</small>
+    </div>
+    <button onclick="deleteBodyEntry(${list.length - 1 - i})">${state.lang === 'ar' ? 'حذف' : 'Delete'}</button>
+  </div>`).join('') || `<div class="empty">${state.lang === 'ar' ? 'لسه مفيش قياسات محفوظة' : 'No measurements saved yet'}</div>`;
+}
+
+function deleteBodyEntry(reverseIndex) {
+  const a = bodyEntries();
+  a.splice(reverseIndex, 1);
+  saveAccountLocal('fitforge-body-entries', a);
+  renderBodyEntries();
+}
+
+function compareSwap() {
+  const a = swapFoods[$('swapFrom').value], b = swapFoods[$('swapTo').value], g = Math.max(10, Math.min(1500, Number($('swapGrams').value) || 100)), scale = g / 100;
+  const out = $('swapResult');
+  out.style.display = 'block';
+  out.innerHTML = `<div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+    <div>
+      <small class="muted">${state.lang === 'ar' ? 'الأصلية' : 'Original'}</small>
+      <h3 style="margin:4px 0 2px;font-size:16px">${state.lang === 'ar' ? a.ar : a.en}</h3>
+      <strong style="color:var(--accent-lime);font-size:18px">${Math.round(a.kcal * scale)} kcal</strong>
+      <p class="muted" style="margin-top:4px">P ${Math.round(a.p * scale * 10) / 10}g · C ${Math.round(a.c * scale * 10) / 10}g · F ${Math.round(a.f * scale * 10) / 10}g</p>
+    </div>
+    <div>
+      <small class="muted">${state.lang === 'ar' ? 'البديل' : 'Alternative'}</small>
+      <h3 style="margin:4px 0 2px;font-size:16px">${state.lang === 'ar' ? b.ar : b.en}</h3>
+      <strong style="color:var(--accent-lime);font-size:18px">${Math.round(b.kcal * scale)} kcal</strong>
+      <p class="muted" style="margin-top:4px">P ${Math.round(b.p * scale * 10) / 10}g · C ${Math.round(b.c * scale * 10) / 10}g · F ${Math.round(b.f * scale * 10) / 10}g</p>
+    </div>
+  </div>
+  <p style="margin-top:12px;font-size:13px">${state.lang === 'ar' ? 'الفرق التقريبي' : 'Approximate difference'}: <strong style="color:var(--accent-lime)">${Math.round((b.kcal - a.kcal) * scale)} kcal</strong>, protein <strong style="color:var(--accent-lime)">${Math.round((b.p - a.p) * scale * 10) / 10} g</strong>.</p>
+  <small class="note">${state.lang === 'ar' ? 'القيم تختلف حسب طريقة التحضير والعلامة التجارية.' : 'Values vary by preparation and brand.'}</small>`;
+}
+
+async function generateBudgetPlan() {
+  const budget = Math.max(50, Math.min(50000, Number($('mealBudget').value) || 500));
+  const goal = $('mealGoal').value, avoid = $('mealAvoid').value.trim(), en = state.lang !== 'ar';
+  const profile = state.profile || {};
+  const userKey = currentUser && currentUser.email ? 'fitforge-week-plan:' + currentUser.email : 'fitforge-week-plan:guest';
+  const targetCalories = Number(profile.calories) || null;
+  const payload = {
+    budget,
+    goal,
+    avoid,
+    language: en ? 'en' : 'ar',
+    profile: {
+      age: Number(profile.age) || null,
+      height: Number(profile.height) || null,
+      weight: Number(profile.weight) || null,
+      activity: profile.activity || 'moderate',
+      dailyCalories: targetCalories,
+      protein: Number(profile.protein) || null
+    }
+  };
+
+  $('budgetPlanResult').innerHTML = `<div class="result">
+    <strong>${en ? 'Building a personalized 7-day plan with AI…' : 'الذكاء الاصطناعي بيجهّز لك نظام مختلف لمدة 7 أيام…'}</strong>
+    <p class="note">${en ? 'The menu is generated from your budget, goal and preferences; it is not a fixed template.' : 'الخطة بتتولد حسب ميزانيتك وهدفك واختياراتك، مش قائمة ثابتة بتتكرر.'}</p>
+  </div>`;
+
+  const buttons = document.querySelectorAll('button[onclick="generateBudgetPlan()"]');
+  buttons.forEach(b => {
+    b.disabled = true;
+    b.dataset.oldText = b.textContent;
+    b.textContent = en ? 'Generating…' : 'جاري التجهيز…';
+  });
+
+  try {
+    const res = await fetch('/api/generate-budget-plan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'AI plan request failed');
+    if (!Array.isArray(data.days) || data.days.length !== 7) throw new Error(en ? 'AI did not return all 7 days. Please try again.' : 'الذكاء الاصطناعي مرجعش الأيام السبعة كاملة. جرّب تاني.');
+
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const goalNames = en ? { bulk: 'Muscle gain', loss: 'Weight loss', cut: 'Cutting', maintain: 'Maintain weight' } : { bulk: 'تضخيم', loss: 'تخسيس', cut: 'تنشيف', maintain: 'تثبيت الوزن' };
+    let weeklyCost = 0;
+
+    const daysHtml = data.days.map((day, i) => {
+      const meals = Array.isArray(day.meals) ? day.meals : [];
+      const kcal = Number(day.calories) || meals.reduce((a, m) => a + (Number(m.calories) || 0), 0);
+      const protein = Number(day.protein) || meals.reduce((a, m) => a + (Number(m.protein) || 0), 0);
+      const carbs = Number(day.carbs) || meals.reduce((a, m) => a + (Number(m.carbs) || 0), 0);
+      const fat = Number(day.fat) || meals.reduce((a, m) => a + (Number(m.fat) || 0), 0);
+      const cost = Number(day.estimated_cost) || 0;
+      weeklyCost += cost;
+
+      const mealsHtml = meals.map(m => {
+        const foods = String(m.foods || '').split(/\s*(?:;|\n|\|)\s*/).map(x => x.trim()).filter(Boolean);
+        return `<article class="meal-card">
+          <div>
+            <div class="meal-title">${esc(m.name || (en ? 'Meal' : 'وجبة'))}</div>
+            <div class="meal-foods">
+              ${foods.map(food => `<div class="meal-food">${esc(food)}</div>`).join('') || `<div class="meal-food">${esc(m.foods || '')}</div>`}
+              ${m.grams ? `<div class="note">${en ? 'Portion guide' : 'الكميات'}: ${esc(m.grams)}</div>` : ''}
+              ${m.notes ? `<div class="note">${esc(m.notes)}</div>` : ''}
+            </div>
+          </div>
+          <div class="meal-macros">
+            <strong>${Math.round(Number(m.calories) || 0)} kcal</strong>
+            <small>Protein ${Math.round(Number(m.protein) || 0)} g</small>
+            <small>Carbs ${Math.round(Number(m.carbs) || 0)} g</small>
+            <small>Fat ${Math.round(Number(m.fat) || 0)} g</small>
+            <small>${en ? 'Est. cost' : 'التكلفة'}: ${Math.round(Number(m.estimated_cost) || 0)} EGP</small>
+          </div>
+        </article>`;
+      }).join('');
+
+      return `<details class="plan-day" ${i === 0 ? 'open' : ''} style="margin:12px 0">
+        <summary style="cursor:pointer;font-weight:800;padding:6px 0">${esc(day.day || (en ? ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][i] : ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'][i]))} · ${kcal} kcal · P ${protein}g · ${en ? 'estimated' : 'تكلفة تقديرية'} ${Math.round(cost)} EGP</summary>
+        <div style="padding:10px 0 0">${mealsHtml}<p class="note" style="margin-top:8px">${en ? 'Daily total' : 'إجمالي اليوم'}: <strong>${kcal} kcal · Protein ${protein}g · Carbs ${carbs}g · Fat ${fat}g</strong></p></div>
+      </details>`;
+    }).join('');
+
+    const shopping = Array.isArray(data.shopping_list) ? data.shopping_list : [];
+    const shoppingHtml = shopping.length ? `<h3 style="margin-top:20px;font-size:16px">${en ? 'Shopping list' : 'قائمة المشتريات'}</h3><div class="food-list" style="margin-top:10px">${shopping.map(x => `<div class="fooditem"><div><strong>${esc(x.item)}</strong><small>${esc(x.quantity || '')}</small></div><strong class="kcal">${Math.round(Number(x.estimated_cost) || 0)} EGP</strong></div>`).join('')}</div>` : '';
+    const result = { budget, goal, avoid, createdAt: new Date().toISOString(), days: data.days, shopping_list: shopping, estimated_week_cost: weeklyCost, summary: data.summary || '' };
+    saveAccountLocal(userKey, result);
+
+    $('budgetPlanResult').innerHTML = `<div class="result">
+      <div class="eyebrow">${en ? 'AI-GENERATED 7-DAY MEAL PLAN' : 'خطة أسبوعية مولّدة بالذكاء الاصطناعي'}</div>
+      <div class="resultnum">${budget.toLocaleString()} EGP <small style="font-size:14px;color:var(--text-muted)">/ ${en ? 'weekly budget' : 'ميزانية الأسبوع'}</small></div>
+      <p style="margin:6px 0"><strong>${esc(goalNames[goal] || goalNames.maintain)}</strong></p>
+      <p style="color:var(--text-muted);font-size:13px">${esc(data.summary || '')}</p>
+      <div class="daily-summary" style="margin:16px 0">
+        <div class="mini-stat"><small>${en ? 'Estimated food cost' : 'تكلفة الأكل التقديرية'}</small><strong>${Math.round(weeklyCost)} EGP</strong></div>
+        <div class="mini-stat"><small>${en ? 'Budget remaining' : 'المتبقي من الميزانية'}</small><strong>${Math.round(budget - weeklyCost)} EGP</strong></div>
+      </div>
+      <p class="note">${en ? 'AI-generated menu. Price estimates use recent Egyptian market benchmarks and can vary by shop and governorate; verify before shopping. If the estimated cost exceeds your budget, regenerate or adjust quantities.' : 'الخطة مولّدة بالذكاء الاصطناعي. تقديرات الأسعار مبنية على مؤشرات سوق مصر الحديثة وقد تختلف حسب المحل والمحافظة؛ راجع الأسعار قبل الشراء. لو التكلفة أعلى من الميزانية، جرّب توليد خطة جديدة أو تعديل الكميات.'}</p>
+      <h3 style="margin-top:18px;font-size:16px">${en ? 'Daily meals' : 'وجبات كل يوم'}</h3>
+      ${daysHtml}
+      ${shoppingHtml}
+      <p class="note" style="margin-top:14px">${en ? 'Food estimates can vary by brand, recipe and cooking oil. This is not medical advice; avoid restrictive diets, especially if under 18.' : 'القيم تختلف حسب نوع المنتج والوصفة وزيت الطهي. دي معلومات عامة وليست نصيحة طبية؛ تجنب الأنظمة القاسية خصوصًا لو أقل من 18 سنة.'}</p>
+    </div>`;
+  } catch (err) {
+    $('budgetPlanResult').innerHTML = `<div class="result">
+      <strong style="color:var(--accent-rose)">${en ? 'Could not generate the AI meal plan' : 'مقدرناش نولّد خطة الأكل بالذكاء الاصطناعي'}</strong>
+      <p style="margin-top:6px">${String(err.message || err).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))}</p>
+      <p class="note">${en ? 'Check your Gemini API key, model access and internet connection, then try again.' : 'راجع مفتاح Gemini والموديل والإنترنت، وبعدها جرّب تاني.'}</p>
+    </div>`;
+  } finally {
+    buttons.forEach(b => {
+      b.disabled = false;
+      b.textContent = b.dataset.oldText || (en ? 'Generate weekly plan' : 'اعمل خطة الأسبوع');
+    });
+  }
+}
+
+function initLanguage() {
+  document.documentElement.lang = state.lang;
+  document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+  $('langBtn').innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span>${state.lang === 'en' ? 'عربي' : 'English'}</span>`;
+  document.querySelectorAll('[data-en]').forEach(el => {
+    if (el.dataset[state.lang] !== undefined) {
+      if (el.tagName === 'OPTION') el.textContent = el.dataset[state.lang];
+      else el.innerHTML = el.dataset[state.lang];
+    }
+  });
+  $('foodSearch').placeholder = tr('Search eggs, koshari, rice…', 'ابحث عن بيض، كشري، رز…');
+}
+
+initLanguage();
+renderAll();
+</script>
+</body>
+</html>
